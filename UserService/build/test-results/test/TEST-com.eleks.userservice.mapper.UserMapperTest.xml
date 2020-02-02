@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.eleks.userservice.mapper.UserMapperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:54:38" hostname="WS-LV-CP3577" time="0.006">
-  <properties/>
-  <testcase name="toDto()" classname="com.eleks.userservice.mapper.UserMapperTest" time="0.004"/>
-  <testcase name="toEntity()" classname="com.eleks.userservice.mapper.UserMapperTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

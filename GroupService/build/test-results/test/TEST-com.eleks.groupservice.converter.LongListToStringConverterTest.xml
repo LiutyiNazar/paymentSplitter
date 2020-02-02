@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.eleks.groupservice.converter.LongListToStringConverterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:56:08" hostname="WS-LV-CP3577" time="0.011">
+<testsuite name="com.eleks.groupservice.converter.LongListToStringConverterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-02-02T14:27:26" hostname="furious" time="0.065">
   <properties/>
   <testcase name="convertToDatabaseColumn_GivenNull_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.002"/>
-  <testcase name="convertToEntityAttribute_GivenEmptyString_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.0"/>
-  <testcase name="convertToEntityAttribute_GivenStringsWithIds_ReturnListOfLongs()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.001"/>
-  <testcase name="convertToDatabaseColumn_GivenEmptyList_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.001"/>
-  <testcase name="convertToDatabaseColumn_GivenListOfThreeLong_ReturnStringWithThreeDigits()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.001"/>
-  <testcase name="convertToEntityAttribute_GivenNull_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.001"/>
+  <testcase name="convertToEntityAttribute_GivenEmptyString_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.002"/>
+  <testcase name="convertToEntityAttribute_GivenStringsWithIds_ReturnListOfLongs()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.002"/>
+  <testcase name="convertToDatabaseColumn_GivenEmptyList_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.002"/>
+  <testcase name="convertToDatabaseColumn_GivenListOfThreeLong_ReturnStringWithThreeDigits()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.017"/>
+  <testcase name="convertToEntityAttribute_GivenNull_ReturnNull()" classname="com.eleks.groupservice.converter.LongListToStringConverterTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.eleks.groupservice.service.PaymentsCalculator.calculateValues;
+import static com.eleks.groupservice.service.impl.PaymentsCalculator.calculateValues;
 
 @Service
 public class GroupServiceImpl implements GroupService {

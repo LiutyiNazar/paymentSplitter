@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.eleks.groupservice.service.PaymentServiceImplTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:56:09" hostname="WS-LV-CP3577" time="0.066">
+<testsuite name="com.eleks.groupservice.service.PaymentServiceImplTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2020-02-02T14:27:30" hostname="furious" time="0.447">
   <properties/>
-  <testcase name="deletePayment_GroupAndPaymentExist_ShouldCallDelete()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.038"/>
-  <testcase name="getPayment_GroupDoesntExist_ShouldReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.001"/>
-  <testcase name="getPayment_GroupExistsButPaymentIsNot_ShouldReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
-  <testcase name="getPayments_GroupDoesntExist_ReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
-  <testcase name="getPayments_GroupExistAndHasPayments_ReturnListOfPayments()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.003"/>
-  <testcase name="getPayments_GroupExistButWithoutPayments_ReturnEmptyList()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
+  <testcase name="deletePayment_GroupAndPaymentExist_ShouldCallDelete()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.076"/>
+  <testcase name="getPayment_GroupDoesntExist_ShouldReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
+  <testcase name="getPayment_GroupExistsButPaymentIsNot_ShouldReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.006"/>
+  <testcase name="getPayments_GroupDoesntExist_ReturnEmptyOptional()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.003"/>
+  <testcase name="getPayments_GroupExistAndHasPayments_ReturnListOfPayments()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.006"/>
+  <testcase name="getPayments_GroupExistButWithoutPayments_ReturnEmptyList()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.015"/>
   <testcase name="createPayment_GroupDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.003"/>
-  <testcase name="deletePayment_PaymentDoesntExist_ShouldThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
-  <testcase name="createPayment_CoPayersIdsNotFromRequestedGroup_ThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
-  <testcase name="getPayment_GroupAndPaymentExists_ShouldReturnResponseModel()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.001"/>
-  <testcase name="createPayment_GroupExistsCoPayersAreValid_SaveAndReturnResponseDto()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
-  <testcase name="deletePayment_PaymentExistButItBelongsToAnotherGroup_ShouldThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.002"/>
+  <testcase name="deletePayment_PaymentDoesntExist_ShouldThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.023"/>
+  <testcase name="createPayment_CoPayersIdsNotFromRequestedGroup_ThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.25"/>
+  <testcase name="getPayment_GroupAndPaymentExists_ShouldReturnResponseModel()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.007"/>
+  <testcase name="createPayment_GroupExistsCoPayersAreValid_SaveAndReturnResponseDto()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.004"/>
+  <testcase name="deletePayment_PaymentExistButItBelongsToAnotherGroup_ShouldThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.PaymentServiceImplTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

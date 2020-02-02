@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.eleks.groupservice.service.GroupServiceImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:56:09" hostname="WS-LV-CP3577" time="0.128">
+<testsuite name="com.eleks.groupservice.service.GroupServiceImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2020-02-02T14:27:30" hostname="furious" time="0.357">
   <properties/>
-  <testcase name="getGroup_GroupDoesntExist_ReturnEmptyOptional()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.091"/>
-  <testcase name="deleteGroupById_GroupWithIdExists_CallRepositoryDelete()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
+  <testcase name="getGroup_GroupDoesntExist_ReturnEmptyOptional()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.286"/>
+  <testcase name="deleteGroupById_GroupWithIdExists_CallRepositoryDelete()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.008"/>
   <testcase name="getGroup_GroupExists_ReturnGroupResponseDto()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
-  <testcase name="editGroup_GroupDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
-  <testcase name="deleteGroupById_GroupWithIdDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
+  <testcase name="editGroup_GroupDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
+  <testcase name="deleteGroupById_GroupWithIdDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.008"/>
   <testcase name="editGroup_GroupExistMembersAreNotValid_ThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
-  <testcase name="getGroupMembersStatus_GroupDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
-  <testcase name="getGroupMembersStatus_RequesterIsNotOneOfMembers_ThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
-  <testcase name="getGroupMembersStatus_GroupHasMembersIdsWhichAreNotValidNow_ShouldReturnStatusForOnlyValidUsers()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.004"/>
-  <testcase name="getGroupMembersStatus_GroupHasRequesterAndOneMoreUserAndNoPayments_ShouldReturnStatusWithRightCurrencyAndUserDataAndZeroBalance()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
-  <testcase name="editGroup_GroupAndMembersAreExist_ReturnResponseDto()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.004"/>
-  <testcase name="saveGroup_GroupMembersAreNotExist_ShouldThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.002"/>
+  <testcase name="getGroupMembersStatus_GroupDoesntExist_ThrowResourceNotFoundException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.007"/>
+  <testcase name="getGroupMembersStatus_RequesterIsNotOneOfMembers_ThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
+  <testcase name="getGroupMembersStatus_GroupHasMembersIdsWhichAreNotValidNow_ShouldReturnStatusForOnlyValidUsers()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.006"/>
+  <testcase name="getGroupMembersStatus_GroupHasRequesterAndOneMoreUserAndNoPayments_ShouldReturnStatusWithRightCurrencyAndUserDataAndZeroBalance()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.006"/>
+  <testcase name="editGroup_GroupAndMembersAreExist_ReturnResponseDto()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.006"/>
+  <testcase name="saveGroup_GroupMembersAreNotExist_ShouldThrowUsersIdsValidationException()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
   <testcase name="saveGroup_GroupMembersAreExist_ReturnSavedUser()" classname="com.eleks.groupservice.service.GroupServiceImplTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

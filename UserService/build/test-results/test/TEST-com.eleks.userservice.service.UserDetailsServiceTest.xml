@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.eleks.userservice.service.UserDetailsServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:54:52" hostname="WS-LV-CP3577" time="0.192">
-  <properties/>
-  <testcase name="loadUserByUsername_UserWithSuchUsernameExists_ShouldReturnDetailModel()" classname="com.eleks.userservice.service.UserDetailsServiceTest" time="0.183"/>
-  <testcase name="loadUserByUsername_UserWithSuchUsernameDoesntExist_ShouldThrowUsernameNotFoundException()" classname="com.eleks.userservice.service.UserDetailsServiceTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
