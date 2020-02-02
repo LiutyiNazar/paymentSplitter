@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.eleks.groupservice.client.UserClientTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:56:03" hostname="WS-LV-CP3577" time="0.702">
+  <properties/>
+  <testcase name="getUsersByIds_ServiceReturnsBadRequest_ShouldReturnEmptyList()" classname="com.eleks.groupservice.client.UserClientTest" time="0.415"/>
+  <testcase name="areUserIdsValid_ServiceReturnsServerError_ShouldThrowException()" classname="com.eleks.groupservice.client.UserClientTest" time="0.03"/>
+  <testcase name="areUserIdsValid_ServiceReturnsBadRequest_ShouldReturnFalse()" classname="com.eleks.groupservice.client.UserClientTest" time="0.034"/>
+  <testcase name="getUsersByIds_ServiceReturnsEmptyList_ShouldReturnEmptyList()" classname="com.eleks.groupservice.client.UserClientTest" time="0.131"/>
+  <testcase name="getUsersByIds_ServiceReturnsServerError_ShouldThrowException()" classname="com.eleks.groupservice.client.UserClientTest" time="0.02"/>
+  <testcase name="areUserIdsValid_ServiceReturnsSameCountOfIdsAsRequested_ShouldReturnTrue()" classname="com.eleks.groupservice.client.UserClientTest" time="0.026"/>
+  <testcase name="getUsersByIds_ServiceReturnsThreeUsers_ShouldReturnListOfThreeUsers()" classname="com.eleks.groupservice.client.UserClientTest" time="0.016"/>
+  <testcase name="areUserIdsValid_ServiceReturnsLessCountOfIdsAsRequested_ShouldReturnFalse()" classname="com.eleks.groupservice.client.UserClientTest" time="0.016"/>
+  <system-out><![CDATA[20:55:53.742 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+20:55:53.761 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+20:55:53.801 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.eleks.groupservice.client.UserClientTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+20:55:53.826 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.eleks.groupservice.client.UserClientTest], using SpringBootContextLoader
+20:55:53.832 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.eleks.groupservice.client.UserClientTest]: class path resource [com/eleks/groupservice/client/UserClientTest-context.xml] does not exist
+20:55:53.833 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.eleks.groupservice.client.UserClientTest]: class path resource [com/eleks/groupservice/client/UserClientTestContext.groovy] does not exist
+20:55:53.834 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.eleks.groupservice.client.UserClientTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+20:55:53.835 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.eleks.groupservice.client.UserClientTest]: UserClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:55:53.903 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.eleks.groupservice.client.UserClientTest]
+20:55:54.012 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Development\America Projects\liutyi-payment-splitter-master\GroupService\build\classes\java\main\com\eleks\groupservice\GroupServiceApplication.class]
+20:55:54.013 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.eleks.groupservice.GroupServiceApplication for test class com.eleks.groupservice.client.UserClientTest
+20:55:54.127 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.eleks.groupservice.client.UserClientTest]: using defaults.
+20:55:54.127 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+20:55:54.154 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5ae6e78b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@480758e7, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6b2830c4, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@23ffd466, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4ec8b52d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3c7a0c73, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@167ea528, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@4bff1f65, org.springframework.test.context.event.EventPublishingTestExecutionListener@4015baea, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@2c603f0f, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4fd4884e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7ce3a2e6, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@11cc957a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3c79480b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@57842132]
+20:55:54.161 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@d379db8 testClass = UserClientTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5ee961a testClass = UserClientTest, locations = '{}', classes = '{class com.eleks.groupservice.GroupServiceApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@25c3944e, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@b1e0da6, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@78a5d0fb, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@9fc815e0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@48aea9ba], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+20:55:54.498 [Test worker] DEBUG org.eclipse.jetty.util.log - Logging to Logger[org.eclipse.jetty.util.log] via org.eclipse.jetty.util.log.Slf4jLog
+20:55:54.513 [Test worker] INFO org.eclipse.jetty.util.log - Logging initialized @2083ms to org.eclipse.jetty.util.log.Slf4jLog
+20:55:54.529 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STOPPED}[9.4.24.v20191120] added {QueuedThreadPool[qtp757805164]@2d2b306c{STOPPED,8<=0<=14,i=0,r=-1,q=0}[NO_TRY],AUTO}
+20:55:54.545 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - HttpConnectionFactory@57808f31[HTTP/1.1] added {HttpConfiguration@517b392e{32768/8192,8192/8192,https://:0,[]},POJO}
+20:55:54.556 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{null,[]}{0.0.0.0:0} added {Server@645a45c{STOPPED}[9.4.24.v20191120],UNMANAGED}
+20:55:54.557 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{null,[]}{0.0.0.0:0} added {QueuedThreadPool[qtp757805164]@2d2b306c{STOPPED,8<=0<=14,i=0,r=-1,q=0}[NO_TRY],AUTO}
+20:55:54.557 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{null,[]}{0.0.0.0:0} added {ScheduledExecutorScheduler@413a099b{STOPPED},AUTO}
+20:55:54.557 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{null,[]}{0.0.0.0:0} added {org.eclipse.jetty.io.ArrayByteBufferPool@5cae8d90,POJO}
+20:55:54.557 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{null,[http/1.1]}{0.0.0.0:0} added {HttpConnectionFactory@57808f31[HTTP/1.1],AUTO}
+20:55:54.558 [Test worker] DEBUG org.eclipse.jetty.server.AbstractConnector - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:0} added HttpConnectionFactory@57808f31[HTTP/1.1]
+20:55:54.561 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:0} added {SelectorManager@NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:0},MANAGED}
+20:55:54.562 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STOPPED}[9.4.24.v20191120] added {NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085},AUTO}
+20:55:54.578 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STOPPED}[9.4.24.v20191120] added {o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,UNAVAILABLE},MANAGED}
+20:55:54.582 [Test worker] DEBUG org.eclipse.jetty.util.DecoratedObjectFactory - Adding Decorator: org.eclipse.jetty.util.DeprecationWarning@34f684
+20:55:54.586 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,UNAVAILABLE} added {ServletHandler@7d7f7835{STOPPED},MANAGED}
+20:55:54.602 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STOPPED}[9.4.24.v20191120] added {o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE},MANAGED}
+20:55:54.603 [Test worker] DEBUG org.eclipse.jetty.util.DecoratedObjectFactory - Adding Decorator: org.eclipse.jetty.util.DeprecationWarning@7d6cafa8
+20:55:54.603 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE} added {ServletHandler@39b3f232{STOPPED},MANAGED}
+20:55:54.611 [Test worker] DEBUG org.eclipse.jetty.http.PreEncodedHttpField - HttpField encoders loaded: [org.eclipse.jetty.http2.hpack.HpackFieldPreEncoder@3e36f803, org.eclipse.jetty.http.Http1FieldPreEncoder@426fceaf]
+20:55:54.629 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE} added {NotFoundHandler@a6b77b0{STOPPED},MANAGED}
+20:55:54.636 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - HandlerCollection@634607be{STOPPED} added {o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,UNAVAILABLE},AUTO}
+20:55:54.642 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["*.svgz",pathDepth=0,group=SUFFIX_GLOB],resource=true] to PathMappings[size=1]
+20:55:54.643 [Test worker] DEBUG org.eclipse.jetty.server.handler.gzip.GzipHandler - GzipHandler@71f85bd5{STOPPED,min=32,inflate=-1} mime types IncludeExclude@7d827563{i=[],ip=CONTAINS,e=[image/ief, image/vnd.wap.wbmp, image/jpeg, application/bzip2, image/x-portable-graymap, application/brotli, image/bmp, image/gif, image/x-icon, audio/midi, video/x-msvideo, image/x-xbitmap, application/x-rar-compressed, image/x-portable-bitmap, image/x-rgb, image/x-cmu-raster, application/gzip, audio/x-wav, audio/x-pn-realaudio, audio/basic, application/compress, audio/x-aiff, video/x.ms.asx, video/x.ms.asf, image/png, video/vnd.rn-realvideo, image/x-xwindowdump, image/jpeg2000, video/x-sgi-movie, audio/mpeg, image/xcf, video/mpeg, image/x-portable-pixmap, image/tiff, image/x-portable-anymap, image/x-xpixmap, application/zip, video/quicktime, application/x-xz, video/mp4],ep=CONTAINS}
+20:55:54.646 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - GzipHandler@71f85bd5{STOPPED,min=32,inflate=-1} added {o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE},MANAGED}
+20:55:54.646 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - HandlerCollection@634607be{STOPPED} added {GzipHandler@71f85bd5{STOPPED,min=32,inflate=-1},AUTO}
+20:55:54.646 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STOPPED}[9.4.24.v20191120] added {HandlerCollection@634607be{STOPPED},MANAGED}
+20:55:54.653 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting Server@645a45c{STOPPED}[9.4.24.v20191120]
+20:55:54.653 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - Server@645a45c{STARTING}[9.4.24.v20191120] added {ErrorHandler@c121280{STOPPED},AUTO}
+20:55:54.655 [Test worker] INFO org.eclipse.jetty.server.Server - jetty-9.4.24.v20191120; built: 2019-11-20T21:37:49.771Z; git: 363d5f2df3a8a28de40604320230664b9c793c16; jvm 11+28
+20:55:54.662 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting Server@645a45c{STARTING}[9.4.24.v20191120]
+20:55:54.662 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting QueuedThreadPool[qtp757805164]@2d2b306c{STOPPED,8<=0<=14,i=0,r=-1,q=0}[NO_TRY]
+20:55:54.663 [Test worker] DEBUG org.eclipse.jetty.util.thread.ReservedThreadExecutor - ReservedThreadExecutor@41cdcd82{s=0/1,p=0}
+20:55:54.664 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=0<=14,i=0,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}] added {ReservedThreadExecutor@41cdcd82{s=0/1,p=0},AUTO}
+20:55:54.664 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ReservedThreadExecutor@41cdcd82{s=0/1,p=0}
+20:55:54.667 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2237ms ReservedThreadExecutor@41cdcd82{s=0/1,p=0}
+20:55:54.667 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-17,5,main]
+20:55:54.667 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-18,5,main]
+20:55:54.668 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-19,5,main]
+20:55:54.668 [qtp757805164-17] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=2<=14,i=2,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.669 [qtp757805164-18] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=3<=14,i=3,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.669 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-20,5,main]
+20:55:54.669 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-21,5,main]
+20:55:54.669 [qtp757805164-19] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=4<=14,i=4,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.670 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-22,5,main]
+20:55:54.670 [qtp757805164-20] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=5<=14,i=5,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.671 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-23,5,main]
+20:55:54.671 [qtp757805164-21] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=6<=14,i=6,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.671 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Starting Thread[qtp757805164-24,5,main]
+20:55:54.672 [qtp757805164-23] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=8<=14,i=8,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.672 [qtp757805164-22] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTING,8<=8<=14,i=8,r=-1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.672 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2242ms QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.672 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting HandlerCollection@634607be{STOPPED}
+20:55:54.672 [qtp757805164-24] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - Runner started for QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.673 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting HandlerCollection@634607be{STARTING}
+20:55:54.673 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,UNAVAILABLE}
+20:55:54.674 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,STARTING}
+20:55:54.674 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ServletHandler@7d7f7835{STOPPED}
+20:55:54.676 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - Path=/recorder/*[EMBEDDED:null] mapped to servlet=org.eclipse.jetty.servlet.DefaultServlet-36b2baa3[EMBEDDED:null]
+20:55:54.676 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["/recorder/*",pathDepth=2,group=PREFIX_GLOB],resource=org.eclipse.jetty.servlet.DefaultServlet-36b2baa3@855147c3==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true] to PathMappings[size=1]
+20:55:54.676 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - Path=/swagger-ui/*[EMBEDDED:null] mapped to servlet=org.eclipse.jetty.servlet.DefaultServlet-76c9edc3[EMBEDDED:null]
+20:55:54.676 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["/swagger-ui/*",pathDepth=2,group=PREFIX_GLOB],resource=org.eclipse.jetty.servlet.DefaultServlet-76c9edc3@26eee103==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true] to PathMappings[size=2]
+20:55:54.677 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - Path=/[EMBEDDED:null] mapped to servlet=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee[EMBEDDED:null]
+20:55:54.677 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["/",pathDepth=-1,group=DEFAULT],resource=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee@144af274==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true] to PathMappings[size=3]
+20:55:54.677 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - filterNameMap={org.eclipse.jetty.servlets.CrossOriginFilter-539feaff=org.eclipse.jetty.servlets.CrossOriginFilter-539feaff@539feaff==org.eclipse.jetty.servlets.CrossOriginFilter,inst=false,async=true}
+20:55:54.681 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - pathFilters=[[/*]/[]/[REQUEST]=>org.eclipse.jetty.servlets.CrossOriginFilter-539feaff]
+20:55:54.681 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletFilterMap={}
+20:55:54.682 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletPathMap=PathMappings[size=3]
+20:55:54.682 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletNameMap={org.eclipse.jetty.servlet.DefaultServlet-36b2baa3=org.eclipse.jetty.servlet.DefaultServlet-36b2baa3@855147c3==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true, org.eclipse.jetty.servlet.DefaultServlet-76c9edc3=org.eclipse.jetty.servlet.DefaultServlet-76c9edc3@26eee103==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true, com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee@144af274==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true}
+20:55:54.682 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting ServletHandler@7d7f7835{STARTING}
+20:55:54.682 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2252ms ServletHandler@7d7f7835{STARTED}
+20:55:54.683 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting org.eclipse.jetty.servlets.CrossOriginFilter-539feaff@539feaff==org.eclipse.jetty.servlets.CrossOriginFilter,inst=false,async=true
+20:55:54.683 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2254ms org.eclipse.jetty.servlets.CrossOriginFilter-539feaff@539feaff==org.eclipse.jetty.servlets.CrossOriginFilter,inst=false,async=true
+20:55:54.685 [Test worker] DEBUG org.eclipse.jetty.servlet.FilterHolder - Filter.init org.eclipse.jetty.servlets.CrossOriginFilter@12089625
+20:55:54.686 [Test worker] DEBUG org.eclipse.jetty.servlets.CrossOriginFilter - Cross-origin filter configuration: allowedOrigins = *, allowedTimingOrigins = null, allowedMethods = OPTIONS,GET,POST,PUT,PATCH,DELETE, allowedHeaders = X-Requested-With,Content-Type,Accept,Origin,Authorization, preflightMaxAge = 1800, allowCredentials = true,exposedHeaders = ,chainPreflight = false
+20:55:54.687 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee@144af274==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.689 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2259ms com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-7a1e19ee@144af274==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.689 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting org.eclipse.jetty.servlet.DefaultServlet-36b2baa3@855147c3==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.689 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2260ms org.eclipse.jetty.servlet.DefaultServlet-36b2baa3@855147c3==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.689 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting org.eclipse.jetty.servlet.DefaultServlet-76c9edc3@26eee103==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.690 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2260ms org.eclipse.jetty.servlet.DefaultServlet-76c9edc3@26eee103==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.690 [Test worker] INFO org.eclipse.jetty.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,AVAILABLE}
+20:55:54.690 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2260ms o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,AVAILABLE}
+20:55:54.690 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting GzipHandler@71f85bd5{STOPPED,min=32,inflate=-1}
+20:55:54.692 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting GzipHandler@71f85bd5{STARTING,min=32,inflate=-1}
+20:55:54.692 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE}
+20:55:54.692 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting o.e.j.s.ServletContextHandler@585e616a{/,null,STARTING}
+20:55:54.693 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ServletHandler@39b3f232{STOPPED}
+20:55:54.693 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - Path=/__files/*[EMBEDDED:null] mapped to servlet=org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7[EMBEDDED:null]
+20:55:54.693 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["/__files/*",pathDepth=2,group=PREFIX_GLOB],resource=org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7@a7075493==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true] to PathMappings[size=1]
+20:55:54.693 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - Path=/[EMBEDDED:null] mapped to servlet=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72[EMBEDDED:null]
+20:55:54.693 [Test worker] DEBUG org.eclipse.jetty.http.pathmap.PathMappings - Added MappedResource[pathSpec=ServletPathSpec["/",pathDepth=-1,group=DEFAULT],resource=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72@89c41bb2==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true] to PathMappings[size=2]
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - filterNameMap={com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter-5e5f5987=com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter-5e5f5987@5e5f5987==com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter,inst=false,async=true, com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter-5d21a350=com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter-5d21a350@5d21a350==com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter,inst=false,async=true}
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - pathFilters=[[/__files/*]/[]/[FORWARD]=>com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter-5e5f5987, [/__files/*]/[]/[FORWARD, ASYNC, INCLUDE, REQUEST, ERROR]=>com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter-5d21a350]
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletFilterMap={}
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletPathMap=PathMappings[size=2]
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.servlet.ServletHandler - servletNameMap={org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7=org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7@a7075493==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true, com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72=com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72@89c41bb2==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true}
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting ServletHandler@39b3f232{STARTING}
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2265ms ServletHandler@39b3f232{STARTED}
+20:55:54.694 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting NotFoundHandler@a6b77b0{STOPPED}
+20:55:54.695 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting NotFoundHandler@a6b77b0{STARTING}
+20:55:54.695 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2265ms NotFoundHandler@a6b77b0{STARTED}
+20:55:54.695 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter-5e5f5987@5e5f5987==com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter,inst=false,async=true
+20:55:54.695 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2266ms com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter-5e5f5987@5e5f5987==com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter,inst=false,async=true
+20:55:54.695 [Test worker] DEBUG org.eclipse.jetty.servlet.FilterHolder - Filter.init com.github.tomakehurst.wiremock.servlet.ContentTypeSettingFilter@795409e1
+20:55:54.696 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter-5d21a350@5d21a350==com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter,inst=false,async=true
+20:55:54.696 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2266ms com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter-5d21a350@5d21a350==com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter,inst=false,async=true
+20:55:54.696 [Test worker] DEBUG org.eclipse.jetty.servlet.FilterHolder - Filter.init com.github.tomakehurst.wiremock.servlet.TrailingSlashFilter@26ff8336
+20:55:54.696 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72@89c41bb2==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.696 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2267ms com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet-230d1e72@89c41bb2==com.github.tomakehurst.wiremock.servlet.WireMockHandlerDispatchingServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.697 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7@a7075493==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.697 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2267ms org.eclipse.jetty.servlet.DefaultServlet-e8aa0b7@a7075493==org.eclipse.jetty.servlet.DefaultServlet,jsp=null,order=-1,inst=false,async=true
+20:55:54.697 [Test worker] INFO org.eclipse.jetty.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@585e616a{/,null,AVAILABLE}
+20:55:54.697 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2268ms o.e.j.s.ServletContextHandler@585e616a{/,null,AVAILABLE}
+20:55:54.698 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2268ms GzipHandler@71f85bd5{STARTED,min=32,inflate=-1}
+20:55:54.698 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2268ms HandlerCollection@634607be{STARTED}
+20:55:54.698 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ErrorHandler@c121280{STOPPED}
+20:55:54.698 [Test worker] DEBUG org.eclipse.jetty.server.handler.AbstractHandler - starting ErrorHandler@c121280{STARTING}
+20:55:54.698 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2269ms ErrorHandler@c121280{STARTED}
+20:55:54.699 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+20:55:54.699 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:8085],POJO}
+20:55:54.701 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ScheduledExecutorScheduler@413a099b{STOPPED}
+20:55:54.703 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2273ms ScheduledExecutorScheduler@413a099b{STARTED}
+20:55:54.703 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting HttpConnectionFactory@57808f31[HTTP/1.1]
+20:55:54.703 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2273ms HttpConnectionFactory@57808f31[HTTP/1.1]
+20:55:54.703 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting SelectorManager@NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+20:55:54.724 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7212001+02:00 added {SelectorProducer@4d193e17,POJO}
+20:55:54.725 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7241984+02:00 added {QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}],UNMANAGED}
+20:55:54.725 [Test worker] DEBUG org.eclipse.jetty.util.thread.strategy.EatWhatYouKill - EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7251995+02:00 created
+20:55:54.726 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - ManagedSelector@5f2c24c1{STOPPED} id=0 keys=-1 selected=-1 updates=0 added {EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7262011+02:00,MANAGED}
+20:55:54.726 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - SelectorManager@NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {ManagedSelector@5f2c24c1{STOPPED} id=0 keys=-1 selected=-1 updates=0,AUTO}
+20:55:54.727 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.727203+02:00 added {SelectorProducer@14fd18ba,POJO}
+20:55:54.727 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.727203+02:00 added {QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}],UNMANAGED}
+20:55:54.728 [Test worker] DEBUG org.eclipse.jetty.util.thread.strategy.EatWhatYouKill - EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7282039+02:00 created
+20:55:54.729 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - ManagedSelector@ac3acb3{STOPPED} id=1 keys=-1 selected=-1 updates=0 added {EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7292084+02:00,MANAGED}
+20:55:54.729 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - SelectorManager@NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {ManagedSelector@ac3acb3{STOPPED} id=1 keys=-1 selected=-1 updates=0,AUTO}
+20:55:54.729 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ManagedSelector@5f2c24c1{STOPPED} id=0 keys=-1 selected=-1 updates=0
+20:55:54.730 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7302046+02:00
+20:55:54.730 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2300ms EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=8,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7302046+02:00
+20:55:54.733 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - queue org.eclipse.jetty.io.ManagedSelector$$Lambda$399/0x000000010034c840@77416496 startThread=0
+20:55:54.733 [qtp757805164-17] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - run org.eclipse.jetty.io.ManagedSelector$$Lambda$399/0x000000010034c840@77416496 in QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=7,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.733 [Test worker] DEBUG org.eclipse.jetty.io.ManagedSelector - Queued change org.eclipse.jetty.io.ManagedSelector$Start@14139ec0 on ManagedSelector@5f2c24c1{STARTING} id=0 keys=0 selected=0 updates=0
+20:55:54.733 [qtp757805164-17] DEBUG org.eclipse.jetty.util.thread.strategy.EatWhatYouKill - EatWhatYouKill@5894048d/SelectorProducer@4d193e17/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=7,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7332012+02:00 tryProduce false
+20:55:54.740 [qtp757805164-17] DEBUG org.eclipse.jetty.io.ManagedSelector - updateable 1
+20:55:54.740 [qtp757805164-17] DEBUG org.eclipse.jetty.io.ManagedSelector - update org.eclipse.jetty.io.ManagedSelector$Start@14139ec0
+20:55:54.740 [qtp757805164-17] DEBUG org.eclipse.jetty.io.ManagedSelector - updates 0
+20:55:54.740 [qtp757805164-17] DEBUG org.eclipse.jetty.io.ManagedSelector - Selector sun.nio.ch.WindowsSelectorImpl@530924f8 waiting with 0 keys
+20:55:54.740 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2311ms ManagedSelector@5f2c24c1{STARTED} id=0 keys=0 selected=0 updates=0
+20:55:54.741 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting ManagedSelector@ac3acb3{STOPPED} id=1 keys=-1 selected=-1 updates=0
+20:55:54.741 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - starting EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=7,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7412211+02:00
+20:55:54.741 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2311ms EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=7,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7412211+02:00
+20:55:54.742 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - queue org.eclipse.jetty.io.ManagedSelector$$Lambda$399/0x000000010034c840@680a3d00 startThread=0
+20:55:54.742 [qtp757805164-18] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - run org.eclipse.jetty.io.ManagedSelector$$Lambda$399/0x000000010034c840@680a3d00 in QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=6,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.743 [Test worker] DEBUG org.eclipse.jetty.io.ManagedSelector - Queued change org.eclipse.jetty.io.ManagedSelector$Start@4ff88ff7 on ManagedSelector@ac3acb3{STARTING} id=1 keys=0 selected=0 updates=0
+20:55:54.743 [qtp757805164-18] DEBUG org.eclipse.jetty.util.thread.strategy.EatWhatYouKill - EatWhatYouKill@6f159c12/SelectorProducer@14fd18ba/IDLE/p=false/QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=6,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2020-01-29T20:55:54.7432078+02:00 tryProduce false
+20:55:54.743 [qtp757805164-18] DEBUG org.eclipse.jetty.io.ManagedSelector - updateable 1
+20:55:54.743 [qtp757805164-18] DEBUG org.eclipse.jetty.io.ManagedSelector - update org.eclipse.jetty.io.ManagedSelector$Start@4ff88ff7
+20:55:54.743 [qtp757805164-18] DEBUG org.eclipse.jetty.io.ManagedSelector - updates 0
+20:55:54.743 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2313ms ManagedSelector@ac3acb3{STARTED} id=1 keys=0 selected=0 updates=0
+20:55:54.743 [qtp757805164-18] DEBUG org.eclipse.jetty.io.ManagedSelector - Selector sun.nio.ch.WindowsSelectorImpl@6d1563bc waiting with 0 keys
+20:55:54.744 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2314ms SelectorManager@NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+20:55:54.745 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {acceptor-0@4985b1dd,POJO}
+20:55:54.745 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - queue acceptor-0@4985b1dd startThread=0
+20:55:54.746 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {acceptor-1@47d54af3,POJO}
+20:55:54.746 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - queue acceptor-1@47d54af3 startThread=0
+20:55:54.745 [qtp757805164-19] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - run acceptor-0@4985b1dd in QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=5,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.746 [Test worker] DEBUG org.eclipse.jetty.util.component.ContainerLifeCycle - NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085} added {acceptor-2@2aa25993,POJO}
+20:55:54.746 [Test worker] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - queue acceptor-2@2aa25993 startThread=0
+20:55:54.746 [Test worker] INFO org.eclipse.jetty.server.AbstractConnector - Started NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+20:55:54.746 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2317ms NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+20:55:54.747 [qtp757805164-21] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - run acceptor-2@2aa25993 in QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=3,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.746 [qtp757805164-20] DEBUG org.eclipse.jetty.util.thread.QueuedThreadPool - run acceptor-1@47d54af3 in QueuedThreadPool[qtp757805164]@2d2b306c{STARTED,8<=8<=14,i=4,r=1,q=0}[ReservedThreadExecutor@41cdcd82{s=0/1,p=0}]
+20:55:54.747 [Test worker] INFO org.eclipse.jetty.server.Server - Started @2317ms
+20:55:54.747 [Test worker] DEBUG org.eclipse.jetty.util.component.AbstractLifeCycle - STARTED @2317ms Server@645a45c{STARTED}[9.4.24.v20191120]
+20:55:54.781 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.2.RELEASE)
+
+2020-01-29 20:55:55.200  INFO 17952 --- [    Test worker] c.e.groupservice.client.UserClientTest   : Starting UserClientTest on WS-LV-CP3577 with PID 17952 (started by nazarii.liutyi in C:\Development\America Projects\liutyi-payment-splitter-master\GroupService)
+2020-01-29 20:55:55.202  INFO 17952 --- [    Test worker] c.e.groupservice.client.UserClientTest   : No active profile set, falling back to default profiles: default
+2020-01-29 20:55:56.861  INFO 17952 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-29 20:55:56.969  INFO 17952 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100ms. Found 2 JPA repository interfaces.
+2020-01-29 20:55:58.152  INFO 17952 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-29 20:55:58.527  INFO 17952 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-01-29 20:55:58.639  INFO 17952 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate Core {5.4.9.Final}
+2020-01-29 20:55:58.691  INFO 17952 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-01-29 20:55:58.805  INFO 17952 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-29 20:55:59.092  INFO 17952 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-29 20:55:59.130  INFO 17952 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-01-29 20:55:59.854  INFO 17952 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-01-29 20:55:59.862  INFO 17952 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-29 20:56:00.886  WARN 17952 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-29 20:56:01.449  INFO 17952 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-01-29 20:56:01.716  INFO 17952 --- [    Test worker] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-01-29 20:56:01.868  INFO 17952 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 997d5f29-3dff-40c1-a5d6-44367001e76c
+
+2020-01-29 20:56:01.975  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2020-01-29 20:56:01.975  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources'], []
+2020-01-29 20:56:01.976  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2020-01-29 20:56:01.976  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/configuration/ui'], []
+2020-01-29 20:56:01.976  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/configuration/security'], []
+2020-01-29 20:56:01.976  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2020-01-29 20:56:01.976  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/webjars/**'], []
+2020-01-29 20:56:02.129  INFO 17952 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@278387aa, org.springframework.security.web.context.SecurityContextPersistenceFilter@4d6dd28, org.springframework.security.web.header.HeaderWriterFilter@2a05a898, org.springframework.security.web.authentication.logout.LogoutFilter@5ccc9b64, com.eleks.common.security.AuthRequestFilter@7958ff8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@459108df, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6199ab38, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76d1309c, org.springframework.security.web.session.SessionManagementFilter@4ddd4093, org.springframework.security.web.access.ExceptionTranslationFilter@28e81d03, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6529aea3]
+2020-01-29 20:56:02.718  INFO 17952 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-29 20:56:03.431  INFO 17952 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-29 20:56:03.450  INFO 17952 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-29 20:56:03.499  INFO 17952 --- [    Test worker] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-29 20:56:03.745  INFO 17952 --- [    Test worker] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_1
+2020-01-29 20:56:03.748  INFO 17952 --- [    Test worker] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_2
+2020-01-29 20:56:03.808  INFO 17952 --- [    Test worker] c.e.groupservice.client.UserClientTest   : Started UserClientTest in 9.017 seconds (JVM running for 11.379)
+2020-01-29 20:56:04.129  INFO 17952 --- [qtp757805164-24] o.e.j.s.handler.ContextHandler.ROOT      : RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'
+2020-01-29 20:56:04.242  INFO 17952 --- [    Test worker] c.eleks.groupservice.client.UserClient   : Client error during request to UserService
+
+org.springframework.web.client.HttpClientErrorException$BadRequest: 400 Bad Request: [no body]
+	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:101) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:170) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:112) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.ResponseErrorHandler.handleError(ResponseErrorHandler.java:63) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:785) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:743) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:677) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:586) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at com.eleks.groupservice.client.UserClient.getUsersFromUserService(UserClient.java:59) ~[main/:na]
+	at com.eleks.groupservice.client.UserClient.getUsersByIds(UserClient.java:46) ~[main/:na]
+	at com.eleks.groupservice.client.UserClientTest.getUsersByIds_ServiceReturnsBadRequest_ShouldReturnEmptyList(UserClientTest.java:158) ~[test/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:675) ~[junit-platform-commons-1.5.2.jar:1.5.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:125) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:132) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:124) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:74) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:104) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:62) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:43) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:35) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:202) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:198) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:102) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:82) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:78) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32) ~[na:na]
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93) ~[na:na]
+	at com.sun.proxy.$Proxy2.stop(Unknown Source) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:132) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404) ~[na:na]
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63) ~[na:na]
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2020-01-29 20:56:04.336  INFO 17952 --- [    Test worker] c.eleks.groupservice.client.UserClient   : Server error during request to UserService
+2020-01-29 20:56:04.368  INFO 17952 --- [    Test worker] c.eleks.groupservice.client.UserClient   : Client error during request to UserService
+
+org.springframework.web.client.HttpClientErrorException$BadRequest: 400 Bad Request: [no body]
+	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:101) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:170) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:112) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.ResponseErrorHandler.handleError(ResponseErrorHandler.java:63) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:785) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:743) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:677) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:586) ~[spring-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at com.eleks.groupservice.client.UserClient.getUsersFromUserService(UserClient.java:59) ~[main/:na]
+	at com.eleks.groupservice.client.UserClient.areUserIdsValid(UserClient.java:37) ~[main/:na]
+	at com.eleks.groupservice.client.UserClientTest.areUserIdsValid_ServiceReturnsBadRequest_ShouldReturnFalse(UserClientTest.java:101) ~[test/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:675) ~[junit-platform-commons-1.5.2.jar:1.5.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:125) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:132) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:124) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:74) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:104) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:62) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:43) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:35) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:202) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:198) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.5.2.jar:5.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51) ~[junit-platform-engine-1.5.2.jar:1.5.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181) ~[na:na]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:102) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:82) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:78) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32) ~[na:na]
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93) ~[na:na]
+	at com.sun.proxy.$Proxy2.stop(Unknown Source) ~[na:na]
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:132) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35) ~[na:na]
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157) ~[na:na]
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404) ~[na:na]
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63) ~[na:na]
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2020-01-29 20:56:04.527  INFO 17952 --- [    Test worker] c.eleks.groupservice.client.UserClient   : Server error during request to UserService
+2020-01-29 20:56:04.610  INFO 17952 --- [    Test worker] o.e.jetty.server.AbstractConnector       : Stopped NetworkTrafficServerConnector@2dc8d53f{HTTP/1.1,[http/1.1]}{0.0.0.0:8085}
+2020-01-29 20:56:04.613  INFO 17952 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Stopped o.e.j.s.ServletContextHandler@585e616a{/,null,UNAVAILABLE}
+2020-01-29 20:56:04.613  INFO 17952 --- [    Test worker] o.e.jetty.server.handler.ContextHandler  : Stopped o.e.j.s.ServletContextHandler@14a9a8cb{/__admin,null,UNAVAILABLE}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "username": "username",
+    "firstName": "firstName",
+    "lastName": "lastNAme",
+    "dateOfBirth": "29-03-2019",
+    "email": "lastNAme@com.com",
+    "receiveNotifications": false
+  },
+  {
+    "id": 2,
+    "username": "username",
+    "firstName": "firstName",
+    "lastName": "lastNAme",
+    "dateOfBirth": "29-03-2019",
+    "email": "lastNAme@com.com",
+    "receiveNotifications": false
+  }
+]

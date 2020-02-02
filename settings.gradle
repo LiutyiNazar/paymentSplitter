@@ -1,0 +1,5 @@
+rootProject.name = 'liutyi-payment-splitter'
+
+include 'UserService'
+include 'GroupService'
+include 'common'

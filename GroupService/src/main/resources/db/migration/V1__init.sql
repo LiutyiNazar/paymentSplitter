@@ -1,0 +1,6 @@
+CREATE TABLE user_group(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  group_name VARCHAR(50) NOT NULL UNIQUE,
+  currency VARCHAR(50) NOT NULL,
+  members VARCHAR(255)
+);

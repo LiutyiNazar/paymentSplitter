@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.eleks.userservice.security.SecurityTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-01-29T18:54:51" hostname="WS-LV-CP3577" time="1.022">
+  <properties/>
+  <testcase name="getUser_WithoutAuthHeader_ShouldReturnUnAuthorizedError()" classname="com.eleks.userservice.security.SecurityTest" time="0.136"/>
+  <testcase name="getUser_WithExpiredJWT_ShouldReturnUnAuthorizedError()" classname="com.eleks.userservice.security.SecurityTest" time="0.131"/>
+  <testcase name="getUser_WithInvalidJWT_ShouldReturnUnAuthorizedError()" classname="com.eleks.userservice.security.SecurityTest" time="0.019"/>
+  <testcase name="getUser_WithValidJWT_ShouldReturnOkAndUser()" classname="com.eleks.userservice.security.SecurityTest" time="0.078"/>
+  <testcase name="saveUser_ValidUserWithoutAuthToken_ShouldReturnCreatedAndSavedUser()" classname="com.eleks.userservice.security.SecurityTest" time="0.299"/>
+  <testcase name="login_ValidCredentialsWithoutAuthToken_ShouldReturnOkAndJwtToken()" classname="com.eleks.userservice.security.SecurityTest" time="0.35"/>
+  <system-out><![CDATA[2020-01-29 20:54:43.519  INFO 19452 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.eleks.userservice.security.SecurityTest], using SpringBootContextLoader
+2020-01-29 20:54:43.521  INFO 19452 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.eleks.userservice.security.SecurityTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2020-01-29 20:54:43.521  INFO 19452 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.eleks.userservice.security.SecurityTest]: SecurityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2020-01-29 20:54:43.534  INFO 19452 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.eleks.userservice.UserServiceApplication for test class com.eleks.userservice.security.SecurityTest
+2020-01-29 20:54:43.539  INFO 19452 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2020-01-29 20:54:43.541  INFO 19452 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@589f762a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@62feb60c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@528b1600, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@18fae8c9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3b77f3da, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2cae6c6e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@269f54ed, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@696c5c57, org.springframework.test.context.event.EventPublishingTestExecutionListener@6d018b83, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@32135751, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6e7745c2, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@657232bf, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@44ef001, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2ccf8606, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@78c28f08]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.2.RELEASE)
+
+2020-01-29 20:54:43.630  INFO 19452 --- [    Test worker] c.e.userservice.security.SecurityTest    : Starting SecurityTest on WS-LV-CP3577 with PID 19452 (started by nazarii.liutyi in C:\Development\America Projects\liutyi-payment-splitter-master\UserService)
+2020-01-29 20:54:43.631  INFO 19452 --- [    Test worker] c.e.userservice.security.SecurityTest    : No active profile set, falling back to default profiles: default
+2020-01-29 20:54:45.738  INFO 19452 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-29 20:54:45.779  INFO 19452 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40ms. Found 1 JPA repository interfaces.
+2020-01-29 20:54:46.218  INFO 19452 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-29 20:54:46.416  INFO 19452 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-29 20:54:46.463  INFO 19452 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-29 20:54:46.510  INFO 19452 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-01-29 20:54:46.534  INFO 19452 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-01-29 20:54:46.601  INFO 19452 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-01-29 20:54:46.601  INFO 19452 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-29 20:54:46.912  WARN 19452 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-29 20:54:48.717  INFO 19452 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-01-29 20:54:49.123  INFO 19452 --- [    Test worker] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-01-29 20:54:49.417  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2020-01-29 20:54:49.417  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources'], []
+2020-01-29 20:54:49.417  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2020-01-29 20:54:49.417  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/configuration/ui'], []
+2020-01-29 20:54:49.418  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/configuration/security'], []
+2020-01-29 20:54:49.418  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2020-01-29 20:54:49.418  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/webjars/**'], []
+2020-01-29 20:54:49.418  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/login', POST], []
+2020-01-29 20:54:49.418  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/users', POST], []
+2020-01-29 20:54:49.571  INFO 19452 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47adc8c4, org.springframework.security.web.context.SecurityContextPersistenceFilter@64e7ccbf, org.springframework.security.web.header.HeaderWriterFilter@47705224, org.springframework.security.web.authentication.logout.LogoutFilter@4c6ade07, com.eleks.common.security.AuthRequestFilter@2d080d3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@380dbe14, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23c619e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c8d7d1b, org.springframework.security.web.session.SessionManagementFilter@6373ec16, org.springframework.security.web.access.ExceptionTranslationFilter@2f249ebc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7cfb8e7a]
+2020-01-29 20:54:50.378  INFO 19452 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-29 20:54:51.262  INFO 19452 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-29 20:54:51.351  INFO 19452 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-29 20:54:51.415  INFO 19452 --- [    Test worker] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-29 20:54:51.657  INFO 19452 --- [    Test worker] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_1
+2020-01-29 20:54:51.664  INFO 19452 --- [    Test worker] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_2
+2020-01-29 20:54:51.738  INFO 19452 --- [    Test worker] c.e.userservice.security.SecurityTest    : Started SecurityTest in 8.189 seconds (JVM running for 18.927)
+2020-01-29 20:54:51.852  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:51.852  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:51.892  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 40 ms
+2020-01-29 20:54:51.911  WARN 19452 --- [    Test worker] c.e.common.security.AuthRequestFilter    : JWT Token is missing or does not begin with Bearer string
+2020-01-29 20:54:51.945  WARN 19452 --- [    Test worker] c.e.common.security.AuthRequestFilter    : Request to parse empty or null JWT : null failed : JWT String argument cannot be null or empty.
+2020-01-29 20:54:51.981  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:51.981  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:51.986  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+2020-01-29 20:54:52.101  WARN 19452 --- [    Test worker] c.e.common.security.AuthRequestFilter    : Request to parse expired JWT : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJ1c2VybmFtZVwiOlwidGVzdFVzZXJcIixcInVzZXJJZFwiOjF9IiwiaWF0IjoxNTgwMzI0MDkxLCJleHAiOjE1ODAzMjQwOTF9.oxDRFXLz5qsoNzhiwwjjRYSRZaYp9g2wY6buoNaCHFWHpPyhmLTzv288ReS3soIpNoaJOr6gIScApH6WyRt3KA failed : JWT expired at 2020-01-29T20:54:51Z. Current time: 2020-01-29T20:54:52Z, a difference of 1101 milliseconds.  Allowed clock skew: 0 milliseconds.
+2020-01-29 20:54:52.114  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:52.114  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:52.119  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+2020-01-29 20:54:52.123  WARN 19452 --- [    Test worker] c.e.common.security.AuthRequestFilter    : Request to parse invalid JWT : random string failed : JWT strings must contain exactly 2 period characters. Found: 0
+2020-01-29 20:54:52.141  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:52.141  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:52.146  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+2020-01-29 20:54:52.214  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:52.214  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:52.219  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+2020-01-29 20:54:52.519  INFO 19452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-01-29 20:54:52.519  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-01-29 20:54:52.523  INFO 19452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
