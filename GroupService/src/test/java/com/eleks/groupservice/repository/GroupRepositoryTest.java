@@ -3,7 +3,6 @@ package com.eleks.groupservice.repository;
 import com.eleks.groupservice.domain.Currency;
 import com.eleks.groupservice.domain.Group;
 import com.eleks.groupservice.domain.Payment;
-import com.google.common.collect.Sets;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,7 +52,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group.sql")
     void save_UpdateGroupWithNewData_ShouldReturnUpdatedGroup() {
         group.setId(1L);
 
@@ -80,7 +78,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group.sql")
     void findById_GroupWithIdExists_ReturnUser() {
         Group found = repository.findById(1L).get();
 
@@ -98,7 +96,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group.sql")
     void deleteById_DeleteExistingGroup_ShouldBeDeleted() {
         repository.deleteById(1L);
 
@@ -112,7 +110,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group_and_two_payments.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group_and_two_payments.sql")
     void deleteById_DeleteExistingGroup_ShouldDeleteTwoPayments() {
         repository.deleteById(1L);
 

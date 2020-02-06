@@ -25,40 +25,40 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.singletonList;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static java.util.Objects.isNull;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 @Slf4j
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final String RESOURCE_NOT_FOUND = "Resource not found";
+    private static final String INCORRECT_DATA = "User data is incorrect";
+
     @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(NOT_FOUND)
     @ResponseBody
     public com.eleks.common.dto.ErrorDto handleNotFoundException(Exception exception) {
-        log.info("handleNotFoundException, " + exception.getMessage());
-        String msg = exception.getMessage() == null ? "Resource not found" : exception.getMessage();
-        return createError(HttpStatus.NOT_FOUND, Collections.singletonList(msg));
+        log.info("Handling NotFoundException, " + exception.getMessage());
+        String msg = isNull(exception.getMessage()) ? RESOURCE_NOT_FOUND : exception.getMessage();
+        return createError(NOT_FOUND, Collections.singletonList(msg));
     }
 
     @ExceptionHandler(UniqueUserPropertiesViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public com.eleks.common.dto.ErrorDto handleBadUserDataException(Exception exception) {
-        log.info("handleBadUserDataException, " + exception.getMessage());
-        String msg = exception.getMessage() == null ? "User data is incorrect" : exception.getMessage();
-        return createError(HttpStatus.BAD_REQUEST, Collections.singletonList(msg));
+        log.info("Handling BadUserDataException, " + exception.getMessage());
+        String msg = isNull(exception.getMessage()) ? INCORRECT_DATA: exception.getMessage();
+        return createError(BAD_REQUEST, Collections.singletonList(msg));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(UNAUTHORIZED)
     @ResponseBody
     public com.eleks.common.dto.ErrorDto handleBadCredentialsException(BadCredentialsException exception) {
-        log.info("handleBadCredentialsException, " + exception.getMessage());
-        return createError(HttpStatus.UNAUTHORIZED, Collections.singletonList(exception.getMessage()));
+        log.info("Handling BadCredentialsException, " + exception.getMessage());
+        return createError(UNAUTHORIZED, Collections.singletonList(exception.getMessage()));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        log.info("handleMethodArgumentNotValid, " + ex.getMessage());
+        log.info("Handling MethodArgumentNotValid, " + ex.getMessage());
 
         List<String> messages = ex.getBindingResult()
                 .getFieldErrors()
@@ -83,7 +83,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        log.info("handleHttpMessageNotReadable, " + ex.getMessage());
+        log.info("Handling HttpMessageNotReadable, " + ex.getMessage());
 
         String msg;
         if (ex.getCause().getCause() instanceof InvalidDateFormatException) {

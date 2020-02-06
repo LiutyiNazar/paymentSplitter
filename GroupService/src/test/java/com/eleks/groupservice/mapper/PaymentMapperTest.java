@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PaymentMapperTest {
 
     @Test
-    void toEntity() {
+    public void toEntity() {
         Long creatorId = 1L;
         Group group = Group.builder()
                 .id(2L)
@@ -37,7 +37,7 @@ class PaymentMapperTest {
     }
 
     @Test
-    void toDto() {
+    public void toDto() {
         Group group = Group.builder()
                 .id(2L)
                 .build();

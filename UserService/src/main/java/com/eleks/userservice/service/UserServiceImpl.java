@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,9 +46,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto saveUser(UserRequestDto user) throws UniqueUserPropertiesViolationException {
         if (repository.findByUsername(user.getUsername()).isPresent()) {
-            throw new UniqueUserPropertiesViolationException("user with this username already exists");
+            throw new UniqueUserPropertiesViolationException("this username already exists");
         } else if (repository.findByEmail(user.getEmail()).isPresent()) {
-            throw new UniqueUserPropertiesViolationException("user with this email already exists");
+            throw new UniqueUserPropertiesViolationException("this email already exists");
         } else {
             User entity = UserMapper.toEntity(user);
 
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
             User saved = repository.save(entity);
             return UserMapper.toDto(saved);
         } else {
-            throw new ResourceNotFoundException("user with this id does't exist");
+            throw new ResourceNotFoundException("this id does't exist");
         }
     }
 
@@ -80,7 +82,23 @@ public class UserServiceImpl implements UserService {
         if (repository.findById(id).isPresent()) {
             repository.deleteById(id);
         } else {
-            throw new ResourceNotFoundException("user with this id does't exist");
+            throw new ResourceNotFoundException("this id does't exist");
+        }
+    }
+
+    @PostConstruct
+    public void addStandardUser(){
+        if (!repository.existsById(1L))
+        {
+            repository.save(User.builder()
+                    .id(1L)
+                    .username("nFury")
+                    .dateOfBirth(LocalDate.of(1998, 4, 12))
+                    .email("furious.nazarii@gmail.com")
+                    .firstName("Nazarii")
+                    .lastName("Furious")
+                    .receiveNotifications(true)
+                    .password(encoder.encode("passocrypto")).build());
         }
     }
 }

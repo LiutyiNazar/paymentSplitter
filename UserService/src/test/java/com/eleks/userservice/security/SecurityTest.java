@@ -53,9 +53,9 @@ public class SecurityTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
     void login_ValidCredentialsWithoutAuthToken_ShouldReturnOkAndJwtToken() throws Exception {
-        LoginRequest request = new LoginRequest("testUser", "Password12");
+        LoginRequest request = new LoginRequest("mcPaul", "Password12");
         String response = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
@@ -69,15 +69,15 @@ public class SecurityTest {
     }
 
     @Test
-    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:scripts/delete_all_users.sql")
+    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:scripts/clear_all_users.sql")
     void saveUser_ValidUserWithoutAuthToken_ShouldReturnCreatedAndSavedUser() throws Exception {
         UserRequestDto userRequestDto = UserRequestDto.builder()
-                .username("username")
-                .password("password")
-                .firstName("firstName")
-                .lastName("lastName")
+                .username("SecondPaul")
+                .password("CryptPass")
+                .firstName("Paul")
+                .lastName("McViol")
                 .dateOfBirth(LocalDate.now())
-                .email("username@eleks.com")
+                .email("p.viol@eleks.com")
                 .receiveNotifications(true)
                 .build();
 
@@ -94,7 +94,7 @@ public class SecurityTest {
     }
 
     @Test
-    void getUser_WithoutAuthHeader_ShouldReturnUnAuthorizedError() throws Exception {
+    public void getUser_WithoutAuthHeader_ShouldReturnUnAuthorizedError() throws Exception {
         String responseBody = mockMvc.perform(get("/users/1"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -108,8 +108,8 @@ public class SecurityTest {
     }
 
     @Test
-    void getUser_WithExpiredJWT_ShouldReturnUnAuthorizedError() throws Exception {
-        String subject = objectMapper.writeValueAsString(new JwtUserDataClaim("testUser", 1L));
+    public void getUser_WithExpiredJWT_ShouldReturnUnAuthorizedError() throws Exception {
+        String subject = objectMapper.writeValueAsString(new JwtUserDataClaim("mcPaul", 1L));
         String expiredJwt = jwtTokenUtil.doGenerateToken(subject, 0);
 
         String responseBody = mockMvc.perform(get("/users/1")
@@ -126,7 +126,7 @@ public class SecurityTest {
     }
 
     @Test
-    void getUser_WithInvalidJWT_ShouldReturnUnAuthorizedError() throws Exception {
+    public void getUser_WithInvalidJWT_ShouldReturnUnAuthorizedError() throws Exception {
         String responseBody = mockMvc.perform(get("/users/1")
                 .header(AUTH_HEADER, BEARER_TOKEN_PREFIX + "random string"))
                 .andExpect(status().isUnauthorized())
@@ -141,9 +141,9 @@ public class SecurityTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void getUser_WithValidJWT_ShouldReturnOkAndUser() throws Exception {
-        String jwt = jwtTokenUtil.generateToken(new JwtUserDataClaim("testUser", 1L));
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void getUser_WithValidJWT_ShouldReturnOkAndUser() throws Exception {
+        String jwt = jwtTokenUtil.generateToken(new JwtUserDataClaim("mcPaul", 1L));
 
         String responseBody = mockMvc.perform(get("/users/1")
                 .header(AUTH_HEADER, BEARER_TOKEN_PREFIX + jwt))

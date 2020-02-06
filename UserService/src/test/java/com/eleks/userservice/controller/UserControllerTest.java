@@ -45,7 +45,7 @@ public class UserControllerTest {
 
     private UserResponseDto userResponseDto;
 
-    private static String randomString = new RandomString(51).nextString();
+    private static String randomStringForTest = new RandomString(51).nextString();
 
     @BeforeEach
     public void setUp() {
@@ -60,12 +60,12 @@ public class UserControllerTest {
                 .build();
 
         userRequestDto = UserRequestDto.builder()
-                .username("username")
-                .password("Passw0rd")
-                .firstName("firstName")
-                .lastName("lastName")
+                .username("PaulMcX")
+                .password("CrypthoPass")
+                .firstName("Paul")
+                .lastName("mcCartney")
                 .dateOfBirth(LocalDate.now())
-                .email("username@eleks.com")
+                .email("paul.mc.x@eleks.com")
                 .receiveNotifications(true)
                 .build();
 
@@ -183,7 +183,7 @@ public class UserControllerTest {
 
     @Test
     public void createUser_WithTooLongUsername_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setUsername(randomString);
+        userRequestDto.setUsername(randomStringForTest);
         String errorMsg = "username length should be between 1 and 50";
         postUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -204,7 +204,7 @@ public class UserControllerTest {
 
     @Test
     public void createUser_WithTooLongFirstName_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setFirstName(randomString);
+        userRequestDto.setFirstName(randomStringForTest);
         String errorMsg = "firstName length should be between 1 and 50";
         postUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -225,7 +225,7 @@ public class UserControllerTest {
 
     @Test
     public void createUser_WithTooLongLastName_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setLastName(randomString);
+        userRequestDto.setLastName(randomStringForTest);
         String errorMsg = "lastName length should be between 1 and 50";
         postUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -283,33 +283,15 @@ public class UserControllerTest {
 
     @Test
     public void createUser_TooLongPassword_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setPassword(randomString);
+        userRequestDto.setPassword(randomStringForTest);
         String errorMsg = "password length should be between 8 and 50";
         postUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
-    }
-
-    private void postUserDataAndExpectBadRequestErrorWithSingleMsg(String content, String errorMsg) throws Exception {
-        String responseBody = mockMvc.perform(post("/users/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse().getContentAsString();
-
-        ErrorDto error = objectMapper.readValue(responseBody, ErrorDto.class);
-
-        assertEquals(error.getStatusCode(), HttpStatus.BAD_REQUEST.value());
-        assertNotNull(error.getMessages());
-        assertEquals(1, error.getMessages().size());
-        assertEquals(errorMsg, error.getMessages().get(0));
-        assertNotNull(error.getTimestamp());
     }
 
     @Test
     public void createUser_InvalidNotificationProp_ReturnBadRequestAndError() throws Exception {
         JSONObject json = new JSONObject(objectMapper.writeValueAsString(userRequestDto));
         json.put("receiveNotifications", "#fr@gr@.com");
-        String errorMsg = "username can't be null";
 
         String responseBody = mockMvc.perform(post("/users/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -359,6 +341,61 @@ public class UserControllerTest {
     }
 
     @Test
+    public void deleteUser_UserExists_ReturnOk() throws Exception {
+        Long id = 1L;
+        mockMvc.perform(delete("/users/" + id))
+                .andExpect(status().isOk());
+
+        verify(service).deleteUserById(eq(id));
+    }
+
+    @Test
+    public void deleteUser_UserDoesntExist_ReturnNotFoundAndError() throws Exception {
+        Long id = 1L;
+        ResourceNotFoundException ex = new ResourceNotFoundException("message");
+        doThrow(ex).when(service).deleteUserById(id);
+
+        String responseBody = mockMvc.perform(delete("/users/" + id))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse().getContentAsString();
+
+        ErrorDto error = objectMapper.readValue(responseBody, ErrorDto.class);
+
+        assertEquals(error.getStatusCode(), HttpStatus.NOT_FOUND.value());
+        assertNotNull(error.getMessages());
+        assertEquals(ex.getMessage(), error.getMessages().get(0));
+        assertNotNull(error.getTimestamp());
+    }
+
+    @Test
+    public void searchUsers_PostSearchParams_ShouldReturnOkAndListOfResults() throws Exception {
+        UserSearchDto searchDto = new UserSearchDto(Collections.singletonList(1L));
+        List<UserResponseDto> result = Collections.singletonList(UserResponseDto.builder().id(1L).build());
+
+        when(service.searchUsers(any(UserSearchDto.class))).thenReturn(result);
+
+        mockMvc.perform(post("/users/search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(searchDto)))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(objectMapper.writeValueAsString(result)));
+    }
+
+    @Test
+    public void searchUsers_PostSearchParams_ShouldReturnOkAndEmptyList() throws Exception {
+        UserSearchDto searchDto = new UserSearchDto(Collections.singletonList(1L));
+
+        when(service.searchUsers(any(UserSearchDto.class))).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(post("/users/search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(searchDto)))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(objectMapper.writeValueAsString(Collections.emptyList())));
+    }
+
+    @Test
     public void editUser_WithoutUsername_ReturnBadRequestAndError() throws Exception {
         userRequestDto.setUsername(null);
         String errorMsg = "username is required";
@@ -374,7 +411,7 @@ public class UserControllerTest {
 
     @Test
     public void editUser_WithTooLongUsername_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setUsername(randomString);
+        userRequestDto.setUsername(randomStringForTest);
         String errorMsg = "username length should be between 1 and 50";
         putUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -395,7 +432,7 @@ public class UserControllerTest {
 
     @Test
     public void editUser_WithTooLongFirstName_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setFirstName(randomString);
+        userRequestDto.setFirstName(randomStringForTest);
         String errorMsg = "firstName length should be between 1 and 50";
         putUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -416,7 +453,7 @@ public class UserControllerTest {
 
     @Test
     public void editUser_WithTooLongLastName_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setLastName(randomString);
+        userRequestDto.setLastName(randomStringForTest);
         String errorMsg = "lastName length should be between 1 and 50";
         putUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
@@ -474,10 +511,13 @@ public class UserControllerTest {
 
     @Test
     public void editUser_WithTooLongPassword_ReturnBadRequestAndError() throws Exception {
-        userRequestDto.setPassword(randomString);
+        userRequestDto.setPassword(randomStringForTest);
         String errorMsg = "password length should be between 8 and 50";
         putUserDataAndExpectBadRequestErrorWithSingleMsg(objectMapper.writeValueAsString(userRequestDto), errorMsg);
     }
+
+
+    ////// PRIVATE METHODS
 
     private void putUserDataAndExpectBadRequestErrorWithSingleMsg(String content, String errorMsg) throws Exception {
         String responseBody = mockMvc.perform(put("/users/1")
@@ -496,59 +536,22 @@ public class UserControllerTest {
         assertNotNull(error.getTimestamp());
     }
 
-    @Test
-    public void deleteUser_UserExists_ReturnOk() throws Exception {
-        Long id = 1L;
-        mockMvc.perform(delete("/users/" + id))
-                .andExpect(status().isOk());
-
-        verify(service).deleteUserById(eq(id));
-    }
-
-    @Test
-    public void deleteUser_UserDoesntExist_ReturnNotFoundAndError() throws Exception {
-        Long id = 1L;
-        ResourceNotFoundException ex = new ResourceNotFoundException("msg");
-        doThrow(ex).when(service).deleteUserById(id);
-
-        String responseBody = mockMvc.perform(delete("/users/" + id))
-                .andExpect(status().isNotFound())
+    private void postUserDataAndExpectBadRequestErrorWithSingleMsg(String content, String errorMsg) throws Exception {
+        String responseBody = mockMvc.perform(post("/users/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
         ErrorDto error = objectMapper.readValue(responseBody, ErrorDto.class);
 
-        assertEquals(error.getStatusCode(), HttpStatus.NOT_FOUND.value());
+        assertEquals(error.getStatusCode(), HttpStatus.BAD_REQUEST.value());
         assertNotNull(error.getMessages());
-        assertEquals(ex.getMessage(), error.getMessages().get(0));
+        assertEquals(1, error.getMessages().size());
+        assertEquals(errorMsg, error.getMessages().get(0));
         assertNotNull(error.getTimestamp());
     }
 
-    @Test
-    public void searchUsers_PostSearchParams_ShouldReturnOkAndListOfResults() throws Exception {
-        UserSearchDto searchDto = new UserSearchDto(Collections.singletonList(1L));
-        List<UserResponseDto> result = Collections.singletonList(UserResponseDto.builder().id(1L).build());
-
-        when(service.searchUsers(any(UserSearchDto.class))).thenReturn(result);
-
-        mockMvc.perform(post("/users/search")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(searchDto)))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(result)));
-    }
-
-    @Test
-    public void searchUsers_PostSearchParams_ShouldReturnOkAndEmptyList() throws Exception {
-        UserSearchDto searchDto = new UserSearchDto(Collections.singletonList(1L));
-
-        when(service.searchUsers(any(UserSearchDto.class))).thenReturn(Collections.emptyList());
-
-        mockMvc.perform(post("/users/search")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(searchDto)))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(Collections.emptyList())));
-    }
 
 }

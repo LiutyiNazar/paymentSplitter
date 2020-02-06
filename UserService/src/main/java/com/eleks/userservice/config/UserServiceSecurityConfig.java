@@ -18,23 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.eleks")
 public class UserServiceSecurityConfig extends BaseSecurityConfig {
 
     private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    public UserServiceSecurityConfig(ObjectMapper objectMapper, JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl userDetailsService, SecurityPrincipalHolder holder) {
-        super(objectMapper, jwtTokenUtil, holder);
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
 
     @Bean
     @Override
@@ -47,9 +39,20 @@ public class UserServiceSecurityConfig extends BaseSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    public UserServiceSecurityConfig(ObjectMapper objectMapper, JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl userDetailsService, SecurityPrincipalHolder holder) {
+        super(objectMapper, jwtTokenUtil, holder);
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
     @Override
     protected List<Map.Entry<HttpMethod, List<String>>> getEndpointsToIgnore() {
-        Map.Entry<HttpMethod, List<String>> endpoints = new AbstractMap.SimpleEntry<>(HttpMethod.POST, Arrays.asList("/login", "/users"));
+        Map.Entry<HttpMethod, List<String>> endpoints = new AbstractMap.SimpleEntry<>(POST, asList("/login", "/users"));
         return Collections.singletonList(endpoints);
     }
 }

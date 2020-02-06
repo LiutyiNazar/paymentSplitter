@@ -37,7 +37,7 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public JwtResponse login(@Valid @RequestBody LoginRequest request) throws IOException, BadCredentialsException {
-        authenticate(request.getUsername(), request.getPassword());
+        performAuthentication(request.getUsername(), request.getPassword());
 
         UserDetailsImpl details = service.loadUserByUsername(request.getUsername());
         JwtUserDataClaim userDataClaim = new JwtUserDataClaim(details.getUsername(), details.getUserId());
@@ -45,7 +45,7 @@ public class AuthController {
         return new JwtResponse(jwtTokenUtil.generateToken(userDataClaim));
     }
 
-    private void authenticate(String username, String password) throws BadCredentialsException {
+    private void performAuthentication(String username, String password) throws BadCredentialsException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (AuthenticationException e) {

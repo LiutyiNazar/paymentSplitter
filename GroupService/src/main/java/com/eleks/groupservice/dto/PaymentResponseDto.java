@@ -12,10 +12,10 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @SuperBuilder
+@EqualsAndHashCode(callSuper = true)
 public class PaymentResponseDto extends PaymentRequestDto {
 
     private Long id;

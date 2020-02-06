@@ -23,6 +23,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class GroupServiceConfig {
 
     @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
@@ -30,17 +42,5 @@ public class GroupServiceConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/");
-    }
-
-    @Bean
-    public ObjectMapper getObjectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        return mapper;
-    }
-
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
     }
 }

@@ -6,10 +6,12 @@ import com.eleks.groupservice.dto.GroupResponseDto;
 
 import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
+
 public class GroupMapper {
 
     public static Group toEntity(GroupRequestDto groupRequestDto) {
-        return Optional.ofNullable(groupRequestDto)
+        return ofNullable(groupRequestDto)
                 .map(dto -> Group.builder()
                         .groupName(dto.getGroupName())
                         .currency(dto.getCurrency())
@@ -19,7 +21,7 @@ public class GroupMapper {
     }
 
     public static GroupResponseDto toDto(Group groupEntity) {
-        return Optional.ofNullable(groupEntity)
+        return ofNullable(groupEntity)
                 .map(entity -> GroupResponseDto.builder()
                         .id(entity.getId())
                         .groupName(entity.getGroupName())

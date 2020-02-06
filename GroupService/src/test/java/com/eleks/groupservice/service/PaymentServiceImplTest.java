@@ -32,24 +32,24 @@ import static org.mockito.Mockito.when;
 class PaymentServiceImplTest {
 
     @Mock
-    GroupRepository groupRepo;
+    private GroupRepository groupRepo;
 
     @Mock
-    PaymentRepository paymentRepo;
+    private PaymentRepository paymentRepo;
 
     @InjectMocks
-    PaymentServiceImpl service;
+    private PaymentServiceImpl service;
 
-    PaymentRequestDto paymentRequest;
+    private PaymentRequestDto paymentRequest;
 
-    Group group;
+    private Group group;
 
-    Payment payment;
+    private Payment payment;
 
-    Long creatorId = 1L;
+    private Long creatorId = 1L;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         paymentRequest = PaymentRequestDto.builder()
                 .paymentDescription("paymentDescription")
                 .coPayers(Lists.newArrayList(1L, 2L))
@@ -75,7 +75,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void createPayment_GroupExistsCoPayersAreValid_SaveAndReturnResponseDto() {
+    public void createPayment_GroupExistsCoPayersAreValid_SaveAndReturnResponseDto() {
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
 
         when(paymentRepo.save(any(Payment.class))).thenReturn(payment);
@@ -93,28 +93,28 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void createPayment_GroupDoesntExist_ThrowResourceNotFoundException() {
+    public void createPayment_GroupDoesntExist_ThrowResourceNotFoundException() {
         when(groupRepo.findById(group.getId())).thenReturn(Optional.empty());
 
-        ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> service.createPayment(group.getId(), creatorId, paymentRequest));
 
-        assertEquals("Group doesn't exist", ex.getMessage());
+        assertEquals("Group doesn't exist", exception.getMessage());
     }
 
     @Test
-    void createPayment_CoPayersIdsNotFromRequestedGroup_ThrowUsersIdsValidationException() {
+    public void createPayment_CoPayersIdsNotFromRequestedGroup_ThrowUsersIdsValidationException() {
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
         paymentRequest.setCoPayers(Lists.newArrayList(42L, 24L));
 
-        UsersIdsValidationException ex = assertThrows(UsersIdsValidationException.class,
+        UsersIdsValidationException exception = assertThrows(UsersIdsValidationException.class,
                 () -> service.createPayment(group.getId(), creatorId, paymentRequest));
 
-        assertEquals("Payment co-payers are not members of group", ex.getMessage());
+        assertEquals("Payment co-payers are not members of group", exception.getMessage());
     }
 
     @Test
-    void getPayment_GroupAndPaymentExists_ShouldReturnResponseModel() {
+    public void getPayment_GroupAndPaymentExists_ShouldReturnResponseModel() {
         group.getPayments().add(payment);
 
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
@@ -125,7 +125,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void getPayment_GroupDoesntExist_ShouldReturnEmptyOptional() {
+    public void getPayment_GroupDoesntExist_ShouldReturnEmptyOptional() {
         when(groupRepo.findById(group.getId())).thenReturn(Optional.empty());
 
         Optional<PaymentResponseDto> result = service.getPayment(group.getId(), payment.getId());
@@ -134,7 +134,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void getPayment_GroupExistsButPaymentIsNot_ShouldReturnEmptyOptional() {
+    public void getPayment_GroupExistsButPaymentIsNot_ShouldReturnEmptyOptional() {
         group.setPayments(Collections.emptyList());
 
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
@@ -145,7 +145,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void getPayments_GroupExistAndHasPayments_ReturnListOfPayments() {
+    public void getPayments_GroupExistAndHasPayments_ReturnListOfPayments() {
         group.getPayments().add(payment);
 
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
@@ -157,7 +157,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void getPayments_GroupExistButWithoutPayments_ReturnEmptyList() {
+    public void getPayments_GroupExistButWithoutPayments_ReturnEmptyList() {
         group.setPayments(Collections.emptyList());
 
         when(groupRepo.findById(group.getId())).thenReturn(Optional.of(group));
@@ -169,7 +169,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void getPayments_GroupDoesntExist_ReturnEmptyOptional() {
+    public void getPayments_GroupDoesntExist_ReturnEmptyOptional() {
         when(groupRepo.findById(group.getId())).thenReturn(Optional.empty());
 
         Optional<List<PaymentResponseDto>> result = service.getPayments(group.getId());
@@ -178,7 +178,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void deletePayment_GroupAndPaymentExist_ShouldCallDelete() {
+    public void deletePayment_GroupAndPaymentExist_ShouldCallDelete() {
         payment.setGroup(group);
 
         when(paymentRepo.findById(payment.getId())).thenReturn(Optional.of(payment));
@@ -189,25 +189,25 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void deletePayment_PaymentDoesntExist_ShouldThrowResourceNotFoundException() {
+    public void deletePayment_PaymentDoesntExist_ShouldThrowResourceNotFoundException() {
         when(paymentRepo.findById(payment.getId())).thenReturn(Optional.empty());
 
-        ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> service.deletePayment(group.getId(), payment.getId()));
 
-        assertEquals("Payment doesn't exists", ex.getMessage());
+        assertEquals("Payment doesn't exists", exception.getMessage());
     }
 
     @Test
-    void deletePayment_PaymentExistButItBelongsToAnotherGroup_ShouldThrowResourceNotFoundException() {
+    public void deletePayment_PaymentExistButItBelongsToAnotherGroup_ShouldThrowResourceNotFoundException() {
         payment.setGroup(group);
 
         when(paymentRepo.findById(payment.getId())).thenReturn(Optional.of(payment));
 
-        ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> service.deletePayment(222L, payment.getId()));
 
-        assertEquals("Payment doesn't exists", ex.getMessage());
+        assertEquals("Payment doesn't exists", exception.getMessage());
     }
 
 }

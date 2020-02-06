@@ -27,15 +27,15 @@ class UserDetailsServiceTest {
     UserDetailsServiceImpl service;
 
     @Test
-    void loadUserByUsername_UserWithSuchUsernameExists_ShouldReturnDetailModel() {
+    public void loadUserByUsername_UserWithSuchUsernameExists_ShouldReturnDetailModel() {
         User user = User.builder()
                 .id(1L)
-                .username("username")
-                .password("password_encoded")
-                .firstName("First name")
-                .lastName("Last name")
+                .username("mcPaul")
+                .password("CryptPass")
+                .firstName("Paul")
+                .lastName("mcXerox")
                 .dateOfBirth(LocalDate.now())
-                .email("user@gmail.com")
+                .email("p.xerox@gmail.com")
                 .receiveNotifications(true)
                 .build();
 
@@ -49,9 +49,9 @@ class UserDetailsServiceTest {
     }
 
     @Test
-    void loadUserByUsername_UserWithSuchUsernameDoesntExist_ShouldThrowUsernameNotFoundException() {
-        when(repository.findByUsername("username")).thenReturn(Optional.empty());
+    public void loadUserByUsername_UserWithSuchUsernameDoesntExist_ShouldThrowUsernameNotFoundException() {
+        when(repository.findByUsername("mcPaul")).thenReturn(Optional.empty());
 
-        assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("username"));
+        assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("mcPaul"));
     }
 }

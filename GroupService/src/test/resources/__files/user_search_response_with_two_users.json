@@ -1,20 +1,20 @@
 [
   {
     "id": 1,
-    "username": "username",
-    "firstName": "firstName",
-    "lastName": "lastNAme",
-    "dateOfBirth": "29-03-2019",
-    "email": "lastNAme@com.com",
+    "username": "PaulX",
+    "firstName": "Paul",
+    "lastName": "Xedo",
+    "dateOfBirth": "29-03-2007",
+    "email": "PaulXedo@com.com",
     "receiveNotifications": false
   },
   {
     "id": 2,
-    "username": "username",
-    "firstName": "firstName",
-    "lastName": "lastNAme",
-    "dateOfBirth": "29-03-2019",
-    "email": "lastNAme@com.com",
+    "username": "PeterZ",
+    "firstName": "Peter",
+    "lastName": "Zonna",
+    "dateOfBirth": "29-03-2012",
+    "email": "peter.zone@com.com",
     "receiveNotifications": false
   }
 ]

@@ -4,11 +4,11 @@ import com.eleks.common.dto.ErrorDto;
 import com.eleks.groupservice.domain.Currency;
 import com.eleks.groupservice.dto.GroupRequestDto;
 import com.eleks.groupservice.dto.GroupResponseDto;
-import com.eleks.groupservice.dto.UserStatusDto;
+import com.eleks.groupservice.dto.StatusResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UserServiceException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
-import com.eleks.groupservice.handler.ResponseExceptionHandler;
+import com.eleks.groupservice.handler.CustomExceptionHandler;
 import com.eleks.groupservice.service.GroupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
@@ -55,9 +55,9 @@ class GroupControllerTest {
     private static String randomString = RandomStringUtils.random(51);
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockMvc = standaloneSetup(controller)
-                .setControllerAdvice(new ResponseExceptionHandler())
+                .setControllerAdvice(new CustomExceptionHandler())
                 .build();
 
         requestDto = GroupRequestDto.builder()
@@ -75,7 +75,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_AllDataIsCorrect_ShouldReturnOkAndModel() throws Exception {
+    public void saveGroup_AllDataIsCorrect_ShouldReturnOkAndModel() throws Exception {
 
         when(groupService.saveGroup(any(GroupRequestDto.class))).thenReturn(responseDto);
 
@@ -88,7 +88,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_GroupWithoutGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void saveGroup_GroupWithoutGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName(null);
 
         postGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -97,7 +97,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_GroupWithBlankGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void saveGroup_GroupWithBlankGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName("");
 
         postGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -107,7 +107,7 @@ class GroupControllerTest {
 
 
     @Test
-    void saveGroup_GroupWithLongGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void saveGroup_GroupWithLongGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName(randomString);
 
         postGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -116,7 +116,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_GroupWithoutCurrency_ShouldReturnBadRequestAndError() throws Exception {
+    public void saveGroup_GroupWithoutCurrency_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setCurrency(null);
 
         postGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -125,7 +125,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_GroupWithoutMembers_ShouldReturnBadRequestAndError() throws Exception {
+    public void saveGroup_GroupWithoutMembers_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setMembers(null);
 
         postGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -134,7 +134,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_GroupMembersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromException() throws Exception {
+    public void saveGroup_GroupMembersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromException() throws Exception {
         Exception error = new UsersIdsValidationException("msg");
 
         when(groupService.saveGroup(any(GroupRequestDto.class))).thenThrow(error);
@@ -145,7 +145,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void saveGroup_UserServiceError_ShouldReturnServerErrorAndErrorWithMsgFromException() throws Exception {
+    public void saveGroup_UserServiceError_ShouldReturnServerErrorAndErrorWithMsgFromException() throws Exception {
         Exception error = new UserServiceException("msg");
 
         when(groupService.saveGroup(any(GroupRequestDto.class))).thenThrow(error);
@@ -173,7 +173,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void getGroup_GettingExistingGroup_ReturnOkAndGroupData() throws Exception {
+    public void getGroup_GettingExistingGroup_ReturnOkAndGroupData() throws Exception {
         when(groupService.getGroup(responseDto.getId())).thenReturn(Optional.of(responseDto));
 
         mockMvc.perform(get("/groups/" + responseDto.getId()))
@@ -183,7 +183,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void getGroup_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
+    public void getGroup_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
         Long id = 1L;
         when(groupService.getGroup(id)).thenReturn(Optional.empty());
 
@@ -200,7 +200,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupExists_ReturnOkAndUpdatedData() throws Exception {
+    public void editGroup_GroupExists_ReturnOkAndUpdatedData() throws Exception {
         when(groupService.editGroup(anyLong(), any(GroupRequestDto.class))).thenReturn(responseDto);
 
         mockMvc.perform(put("/groups/" + responseDto.getId())
@@ -212,7 +212,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
+    public void editGroup_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
         ResourceNotFoundException ex = new ResourceNotFoundException("msg");
 
         when(groupService.editGroup(anyLong(), any(GroupRequestDto.class))).thenThrow(ex);
@@ -233,7 +233,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupWithoutGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void editGroup_GroupWithoutGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName(null);
 
         putGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -242,7 +242,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupWithBlankGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void editGroup_GroupWithBlankGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName("");
 
         putGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -252,7 +252,7 @@ class GroupControllerTest {
 
 
     @Test
-    void editGroup_GroupWithLongGroupName_ShouldReturnBadRequestAndError() throws Exception {
+    public void editGroup_GroupWithLongGroupName_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setGroupName(randomString);
 
         putGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -261,7 +261,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupWithoutCurrency_ShouldReturnBadRequestAndError() throws Exception {
+    public void editGroup_GroupWithoutCurrency_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setCurrency(null);
 
         putGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -270,7 +270,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupWithoutMembers_ShouldReturnBadRequestAndError() throws Exception {
+    public void editGroup_GroupWithoutMembers_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setMembers(null);
 
         putGroupAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -279,7 +279,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_GroupMembersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromException() throws Exception {
+    public void editGroup_GroupMembersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromException() throws Exception {
         Exception error = new UsersIdsValidationException("msg");
 
         when(groupService.editGroup(anyLong(), any(GroupRequestDto.class))).thenThrow(error);
@@ -290,7 +290,7 @@ class GroupControllerTest {
     }
 
     @Test
-    void editGroup_UserServiceError_ShouldReturnServerErrorAndErrorWithMsgFromException() throws Exception {
+    public void editGroup_UserServiceError_ShouldReturnServerErrorAndErrorWithMsgFromException() throws Exception {
         Exception error = new UserServiceException("msg");
 
         when(groupService.editGroup(anyLong(), any(GroupRequestDto.class))).thenThrow(error);
@@ -348,14 +348,14 @@ class GroupControllerTest {
 
     @Test
     public void getGroupMembersStatus_GroupExistsRequesterIsGroupMember_ReturnListOfStatuses() throws Exception {
-        List<UserStatusDto> status = Arrays.asList(
-                UserStatusDto.builder()
+        List<StatusResponseDto> status = Arrays.asList(
+                StatusResponseDto.builder()
                         .userId(1L)
                         .username("username1")
                         .currency(Currency.UAH)
                         .value(10D)
                         .build(),
-                UserStatusDto.builder()
+                StatusResponseDto.builder()
                         .userId(2L)
                         .username("username2")
                         .currency(Currency.UAH)

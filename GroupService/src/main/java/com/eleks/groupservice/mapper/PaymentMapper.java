@@ -6,36 +6,36 @@ import com.eleks.groupservice.dto.PaymentRequestDto;
 import com.eleks.groupservice.dto.PaymentResponseDto;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
 
 public class PaymentMapper {
 
-    public static Payment toEntity(Long creatorId, Group group, PaymentRequestDto dto) {
-        if (Objects.isNull(dto)) {
-            return null;
-        } else {
-            return Payment.builder()
-                    .paymentDescription(dto.getPaymentDescription())
-                    .price(dto.getPrice())
-                    .coPayers(dto.getCoPayers())
-                    .creatorId(creatorId)
-                    .group(group)
-                    .build();
-        }
+    public static Payment toEntity(Long creatorId, Group group, PaymentRequestDto requestDto) {
+        return ofNullable(requestDto)
+                .map(dto -> Payment.builder()
+                        .paymentDescription(dto.getPaymentDescription())
+                        .price(dto.getPrice())
+                        .coPayers(dto.getCoPayers())
+                        .creatorId(creatorId)
+                        .group(group)
+                        .build())
+                .orElse(null);
     }
 
-    public static PaymentResponseDto toDto(Payment entity) {
-        if (Objects.isNull(entity)) {
-            return null;
-        } else {
-            return PaymentResponseDto.builder()
-                    .id(entity.getId())
-                    .paymentDescription(entity.getPaymentDescription())
-                    .price(entity.getPrice())
-                    .coPayers(entity.getCoPayers())
-                    .creatorId(entity.getCreatorId())
-                    .groupId(entity.getGroup().getId())
-                    .timestamp(entity.getTimestamp())
-                    .build();
-        }
+    public static PaymentResponseDto toDto(Payment payment) {
+        return ofNullable(payment)
+                .map(entity -> PaymentResponseDto.builder()
+                        .id(entity.getId())
+                        .paymentDescription(entity.getPaymentDescription())
+                        .price(entity.getPrice())
+                        .coPayers(entity.getCoPayers())
+                        .creatorId(entity.getCreatorId())
+                        .groupId(entity.getGroup().getId())
+                        .timestamp(entity.getTimestamp())
+                        .build())
+                .orElse(null);
     }
 }

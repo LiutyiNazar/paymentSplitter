@@ -19,17 +19,19 @@ import java.util.stream.Collectors;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private GroupRepository groupRepo;
-    private PaymentRepository paymentRepo;
+    private GroupRepository groupRepository;
+    private PaymentRepository paymentRepository;
 
-    public PaymentServiceImpl(GroupRepository groupRepo, PaymentRepository paymentRepo) {
-        this.groupRepo = groupRepo;
-        this.paymentRepo = paymentRepo;
+    public PaymentServiceImpl(GroupRepository groupRepository, PaymentRepository paymentRepository) {
+        this.groupRepository = groupRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     @Override
-    public PaymentResponseDto createPayment(Long groupId, Long creatorId, PaymentRequestDto requestDto) throws ResourceNotFoundException, UsersIdsValidationException {
-        Group group = groupRepo.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group doesn't exist"));
+    public PaymentResponseDto createPayment(Long groupId, Long creatorId, PaymentRequestDto requestDto)
+            throws ResourceNotFoundException, UsersIdsValidationException {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new ResourceNotFoundException("Group doesn't exist"));
 
         boolean areCoPayersIdsValid = group.getMembers().containsAll(requestDto.getCoPayers());
 
@@ -38,12 +40,12 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Payment payment = PaymentMapper.toEntity(creatorId, group, requestDto);
-        return PaymentMapper.toDto(paymentRepo.save(payment));
+        return PaymentMapper.toDto(paymentRepository.save(payment));
     }
 
     @Override
     public Optional<PaymentResponseDto> getPayment(Long groupId, Long paymentId) {
-        Optional<Group> groupResult = groupRepo.findById(groupId);
+        Optional<Group> groupResult = groupRepository.findById(groupId);
         if (groupResult.isPresent()) {
             return groupResult.get()
                     .getPayments()
@@ -51,14 +53,13 @@ public class PaymentServiceImpl implements PaymentService {
                     .filter(payment -> payment.getId().equals(paymentId))
                     .findFirst()
                     .map(PaymentMapper::toDto);
-        } else {
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     @Override
     public Optional<List<PaymentResponseDto>> getPayments(Long groupId) {
-        Optional<Group> groupResult = groupRepo.findById(groupId);
+        Optional<Group> groupResult = groupRepository.findById(groupId);
         if (groupResult.isPresent()) {
             List<PaymentResponseDto> result = groupResult.get()
                     .getPayments()
@@ -66,18 +67,18 @@ public class PaymentServiceImpl implements PaymentService {
                     .map(PaymentMapper::toDto)
                     .collect(Collectors.toList());
             return Optional.of(result);
-        } else {
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     @Override
     public void deletePayment(Long groupId, Long paymentId) throws ResourceNotFoundException {
-        Optional<Payment> foundPayment = paymentRepo.findById(paymentId);
-        if (foundPayment.isPresent() && foundPayment.get().getGroup().getId().equals(groupId)) {
-            paymentRepo.deleteById(foundPayment.get().getId());
-        } else {
-            throw new ResourceNotFoundException("Payment doesn't exists");
-        }
+         paymentRepository.findById(paymentId)
+                .filter(payment -> payment.getGroup().getId().equals(groupId))
+                .map(payment -> {
+                    paymentRepository.deleteById(payment.getId());
+                    return payment;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Payment doesn't exists"));
     }
 }

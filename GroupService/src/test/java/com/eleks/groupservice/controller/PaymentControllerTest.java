@@ -7,7 +7,7 @@ import com.eleks.groupservice.dto.PaymentRequestDto;
 import com.eleks.groupservice.dto.PaymentResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
-import com.eleks.groupservice.handler.ResponseExceptionHandler;
+import com.eleks.groupservice.handler.CustomExceptionHandler;
 import com.eleks.groupservice.service.PaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
@@ -51,16 +51,16 @@ class PaymentControllerTest {
     private PaymentService service;
 
     @MockBean
-    SecurityPrincipalHolder principalHolder;
+    private SecurityPrincipalHolder principalHolder;
 
     private PaymentRequestDto requestDto;
     private PaymentResponseDto responseDto;
     private LoggedInUserPrincipal principal;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mockMvc = standaloneSetup(controller)
-                .setControllerAdvice(new ResponseExceptionHandler())
+                .setControllerAdvice(new CustomExceptionHandler())
                 .build();
 
         principal = new LoggedInUserPrincipal("testUser", 1L, "jwt_token");
@@ -84,7 +84,7 @@ class PaymentControllerTest {
 
 
     @Test
-    void createPayment_AllDataIsSet_ReturnOkAndSavedPayment() throws Exception {
+    public void createPayment_AllDataIsSet_ReturnOkAndSavedPayment() throws Exception {
         when(service.createPayment(anyLong(), anyLong(), any(PaymentRequestDto.class))).thenReturn(responseDto);
         when(principalHolder.getPrincipal()).thenReturn(principal);
 
@@ -97,7 +97,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithoutDescription_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithoutDescription_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPaymentDescription(null);
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -106,7 +106,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithBlankDescription_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithBlankDescription_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPaymentDescription("");
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -115,7 +115,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithTooLongDescription_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithTooLongDescription_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPaymentDescription(RandomStringUtils.randomAscii(201));
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -124,7 +124,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithoutPrice_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithoutPrice_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPrice(null);
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -133,7 +133,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithNegativePrice_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithNegativePrice_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPrice(-10D);
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -142,7 +142,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithZeroPrice_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithZeroPrice_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setPrice(0D);
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -151,7 +151,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_PaymentWithoutCoPayers_ShouldReturnBadRequestAndError() throws Exception {
+    public void createPayment_PaymentWithoutCoPayers_ShouldReturnBadRequestAndError() throws Exception {
         requestDto.setCoPayers(null);
 
         postPaymentAndExpectStatusAndErrorWithMessage(objectMapper.writeValueAsString(requestDto),
@@ -160,7 +160,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_CoPayersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromUsersIdsValidationException() throws Exception {
+    public void createPayment_CoPayersIdsAreInvalid_ShouldReturnBadRequestAndErrorWithMsgFromUsersIdsValidationException() throws Exception {
         UsersIdsValidationException error = new UsersIdsValidationException("msg");
 
         when(service.createPayment(anyLong(), anyLong(), any(PaymentRequestDto.class))).thenThrow(error);
@@ -172,7 +172,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void createPayment_GroupDoesntExist_ShouldReturnNotFoundAndErrorWithMsgFromResourceNotFoundException() throws Exception {
+    public void createPayment_GroupDoesntExist_ShouldReturnNotFoundAndErrorWithMsgFromResourceNotFoundException() throws Exception {
         ResourceNotFoundException error = new ResourceNotFoundException("msg");
 
         when(service.createPayment(anyLong(), anyLong(), any(PaymentRequestDto.class))).thenThrow(error);
@@ -201,7 +201,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void getPayment_GettingExistingPayment_ReturnOkAndPaymentData() throws Exception {
+    public void getPayment_GettingExistingPayment_ReturnOkAndPaymentData() throws Exception {
         when(service.getPayment(anyLong(), anyLong())).thenReturn(Optional.of(responseDto));
 
         mockMvc.perform(get("/groups/1/payments/" + responseDto.getId()))
@@ -211,7 +211,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void getPayment_PaymentDoesntExist_ReturnNotFoundAndError() throws Exception {
+    public void getPayment_PaymentDoesntExist_ReturnNotFoundAndError() throws Exception {
         when(service.getPayment(anyLong(), anyLong())).thenReturn(Optional.empty());
 
         String responseBody = mockMvc.perform(get("/groups/1/payments/" + responseDto.getId()))
@@ -227,7 +227,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void getPayments_GroupExistsPaymentsExist_ReturnOkListOfPayments() throws Exception {
+    public void getPayments_GroupExistsPaymentsExist_ReturnOkListOfPayments() throws Exception {
         List<PaymentResponseDto> list = Arrays.asList(PaymentResponseDto.builder().id(1L).build(),
                 PaymentResponseDto.builder().id(2L).build(),
                 PaymentResponseDto.builder().id(3L).build());
@@ -241,7 +241,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void getPayments_GroupExistsPaymentsDontExist_ReturnOkAndEmptyList() throws Exception {
+    public void getPayments_GroupExistsPaymentsDontExist_ReturnOkAndEmptyList() throws Exception {
         List<PaymentResponseDto> list = Collections.emptyList();
 
         when(service.getPayments(anyLong())).thenReturn(Optional.of(list));
@@ -253,7 +253,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void getPayments_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
+    public void getPayments_GroupDoesntExist_ReturnNotFoundAndError() throws Exception {
         when(service.getPayments(anyLong())).thenReturn(Optional.empty());
 
         String responseBody = mockMvc.perform(get("/groups/1/payments"))

@@ -18,6 +18,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static java.util.Objects.isNull;
+
 @Slf4j
 @Component
 public class UserClient {
@@ -41,7 +45,7 @@ public class UserClient {
         }
     }
 
-    public List<UserDto> getUsersByIds(List<Long> userIds) throws UserServiceException {
+    public List<UserDto> getListOfUsersByIds(List<Long> userIds) throws UserServiceException {
         try {
             return getUsersFromUserService(userIds);
         } catch (HttpClientErrorException ex) {
@@ -57,9 +61,9 @@ public class UserClient {
             HttpEntity<UserSearchDto> requestEntity = new HttpEntity<>(requestDto, getHeaders());
 
             UserDto[] responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, UserDto[].class).getBody();
-            return responseEntity == null ? Collections.emptyList() : Arrays.asList(responseEntity);
+            return isNull(responseEntity) ? emptyList() : asList(responseEntity);
         } catch (HttpServerErrorException ex) {
-            log.info("Server error during request to UserService");
+            log.info("Client error during request to UserService", ex);
             throw new UserServiceException("Server error during request to UserService");
         }
     }

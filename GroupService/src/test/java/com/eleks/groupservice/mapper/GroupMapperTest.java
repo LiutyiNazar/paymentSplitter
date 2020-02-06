@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class GroupMapperTest {
 
     @Test
-    void toEntity_NotNullDto_ReturnEntity() {
+    public void toEntity_NotNullDto_ReturnEntity() {
         GroupRequestDto dto = GroupRequestDto.builder()
                 .groupName("groupName")
                 .currency(Currency.UAH)
@@ -30,12 +30,12 @@ class GroupMapperTest {
     }
 
     @Test
-    void toEntity_NullDto_ReturnNull() {
+    public void toEntity_NullDto_ReturnNull() {
         assertNull(GroupMapper.toEntity(null));
     }
 
     @Test
-    void toDto_NotNullEntity_ReturnDto() {
+    public void toDto_NotNullEntity_ReturnDto() {
         Group entity = Group.builder()
                 .id(1L)
                 .groupName("groupName")
@@ -52,7 +52,7 @@ class GroupMapperTest {
     }
 
     @Test
-    void toDto_NullEntity_ReturnNull() {
+    public void toDto_NullEntity_ReturnNull() {
         assertNull(GroupMapper.toDto(null));
     }
 }

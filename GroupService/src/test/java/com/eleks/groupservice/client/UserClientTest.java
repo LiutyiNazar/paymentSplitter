@@ -29,7 +29,7 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 @SpringBootTest
 class UserClientTest {
 
-    static WireMockServer wm = new WireMockServer(8085);
+    private static WireMockServer wireMockServer = new WireMockServer(8085);
 
     private static List<Long> userIds;
 
@@ -46,7 +46,7 @@ class UserClientTest {
 
     @BeforeAll
     static void setUpAll() {
-        wm.start();
+        wireMockServer.start();
         userIds = Lists.newArrayList(1L, 2L, 3L);
     }
 
@@ -58,14 +58,14 @@ class UserClientTest {
 
     @AfterAll
     static void cleanUpAll() {
-        wm.stop();
+        wireMockServer.stop();
     }
 
     @Test
     void areUserIdsValid_ServiceReturnsSameCountOfIdsAsRequested_ShouldReturnTrue() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBodyFile("user_search_response_with_three_users.json")));
@@ -80,7 +80,7 @@ class UserClientTest {
     void areUserIdsValid_ServiceReturnsLessCountOfIdsAsRequested_ShouldReturnFalse() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBodyFile("user_search_response_with_two_users.json")));
@@ -95,7 +95,7 @@ class UserClientTest {
     void areUserIdsValid_ServiceReturnsBadRequest_ShouldReturnFalse() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(status(400)));
 
         boolean isValid = client.areUserIdsValid(userIds);
@@ -108,7 +108,7 @@ class UserClientTest {
     void areUserIdsValid_ServiceReturnsServerError_ShouldThrowException() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(status(500)));
 
         UserServiceException exception = assertThrows(UserServiceException.class,
@@ -122,12 +122,12 @@ class UserClientTest {
     void getUsersByIds_ServiceReturnsThreeUsers_ShouldReturnListOfThreeUsers() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBodyFile("user_search_response_with_three_users.json")));
 
-        List<UserDto> result = client.getUsersByIds(userIds);
+        List<UserDto> result = client.getListOfUsersByIds(userIds);
 
         verifyPostOnSearchWithRequestDto(searchDto);
         assertEquals(3, result.size());
@@ -137,12 +137,12 @@ class UserClientTest {
     void getUsersByIds_ServiceReturnsEmptyList_ShouldReturnEmptyList() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBody("[]")));
 
-        List<UserDto> result = client.getUsersByIds(userIds);
+        List<UserDto> result = client.getListOfUsersByIds(userIds);
 
         verifyPostOnSearchWithRequestDto(searchDto);
         assertTrue(result.isEmpty());
@@ -152,10 +152,10 @@ class UserClientTest {
     void getUsersByIds_ServiceReturnsBadRequest_ShouldReturnEmptyList() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(status(400)));
 
-        List<UserDto> result = client.getUsersByIds(userIds);
+        List<UserDto> result = client.getListOfUsersByIds(userIds);
 
         verifyPostOnSearchWithRequestDto(searchDto);
         assertTrue(result.isEmpty());
@@ -165,18 +165,18 @@ class UserClientTest {
     void getUsersByIds_ServiceReturnsServerError_ShouldThrowException() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(userIds);
 
-        wm.stubFor(post(urlEqualTo("/users/search"))
+        wireMockServer.stubFor(post(urlEqualTo("/users/search"))
                 .willReturn(status(500)));
 
         UserServiceException exception = assertThrows(UserServiceException.class,
-                () -> client.getUsersByIds(userIds));
+                () -> client.getListOfUsersByIds(userIds));
 
         verifyPostOnSearchWithRequestDto(searchDto);
         assertEquals("Server error during request to UserService", exception.getMessage());
     }
 
     private void verifyPostOnSearchWithRequestDto(UserSearchDto dto) throws Exception {
-        wm.verify((postRequestedFor(urlEqualTo("/users/search"))
+        wireMockServer.verify((postRequestedFor(urlEqualTo("/users/search"))
                 .withHeader(CONTENT_TYPE, equalTo(MediaType.APPLICATION_JSON_VALUE))
                 .withHeader(AUTHORIZATION, equalTo(BEARER_TOKEN_PREFIX + fakePrincipal.getJwt()))
                 .withRequestBody(equalToJson(objectMapper.writeValueAsString(dto)))));

@@ -1,6 +1,6 @@
 package com.eleks.userservice.dto.user;
 
-import com.eleks.userservice.serializer.SimpleDateJsonDeserializer;
+import com.eleks.userservice.serializer.CustomJsonDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class UserResponseDto {
     private String username;
     private String firstName;
     private String lastName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SimpleDateJsonDeserializer.PATTERN)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = CustomJsonDeserializer.PATTERN)
     private LocalDate dateOfBirth;
     private String email;
     private Boolean receiveNotifications;

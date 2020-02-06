@@ -3,7 +3,6 @@ package com.eleks.groupservice.repository;
 import com.eleks.groupservice.domain.Currency;
 import com.eleks.groupservice.domain.Group;
 import com.eleks.groupservice.domain.Payment;
-import com.google.common.collect.Sets;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,13 +51,13 @@ class PaymentRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group_and_payment.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group_and_payment.sql")
     void findById_GroupAndPaymentExists_ShouldReturnRightModel() {
         Payment payment = repository.findById(1L).get();
 
         assertEquals(1L, payment.getId());
-        assertEquals("test payment description", payment.getPaymentDescription());
-        assertEquals(100.0, payment.getPrice());
+        assertEquals("testing payment description", payment.getPaymentDescription());
+        assertEquals(250, payment.getPrice());
         assertEquals(3, payment.getCoPayers().size());
         assertEquals(1L, payment.getCreatorId());
         assertEquals(1L, payment.getGroup().getId());
@@ -75,7 +74,7 @@ class PaymentRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group.sql")
     void save_SavePaymentToGroup_ShouldBeSavedWithIdAndTimestamp() {
         Payment savedPayment = repository.save(payment);
 
@@ -90,7 +89,7 @@ class PaymentRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group_and_two_payments.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group_and_two_payments.sql")
     void findAll_UsersExist_ReturnUsers() {
         List<Payment> found = repository.findAll();
 
@@ -105,7 +104,7 @@ class PaymentRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_group_and_payment.sql")
+    @Sql(scripts = "classpath:scripts/add_test_group_and_payment.sql")
     void deleteById_DeleteExistingPayment_ShouldBeDeleted() {
         repository.deleteById(1L);
 

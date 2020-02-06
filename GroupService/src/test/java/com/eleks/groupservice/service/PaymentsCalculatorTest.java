@@ -16,16 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PaymentsCalculatorTest {
 
     @Test
-    void calculateValues_NoOtherMembers_ReturnEmptyValuesMap() {
+    public void calculateValues_NoOtherMembers_ReturnEmptyValuesMap() {
         List<Payment> payments = Collections.singletonList(Payment.builder().build());
-
         Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, Collections.emptyList());
 
         assertTrue(values.isEmpty());
     }
 
     @Test
-    void calculateValues_NoPayments_ReturnValuesMapWithOnlyZeros() {
+    public void calculateValues_NoPayments_ReturnValuesMapWithOnlyZeros() {
         Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, Collections.emptyList(), Arrays.asList(1L, 2L));
 
         for (Double value : values.values()) {
@@ -34,7 +33,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_NoPaymentsWithRequester_ReturnValuesMapWithOnlyZeros() {
+    public void calculateValues_NoPaymentsWithRequester_ReturnValuesMapWithOnlyZeros() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Arrays.asList(
                 Payment.builder()
@@ -57,7 +56,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_OnePaymentByRequester_ReturnPositiveValueForTwoOtherMembers() {
+    public void calculateValues_OnePaymentByRequester_ReturnPositiveValueForTwoOtherMembers() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Collections.singletonList(Payment.builder()
                 .creatorId(1L)
@@ -73,7 +72,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_OnePaymentByNonRequester_ReturnNegativeValueForOneOfOtherMembers() {
+    public void calculateValues_OnePaymentByNonRequester_ReturnNegativeValueForOneOfOtherMembers() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Collections.singletonList(Payment.builder()
                 .creatorId(2L)
@@ -89,7 +88,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_TwoPaymentsByRequester_ReturnPositiveSumValuesForOtherMembers() {
+    public void calculateValues_TwoPaymentsByRequester_ReturnPositiveSumValuesForOtherMembers() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Arrays.asList(
                 Payment.builder()
@@ -112,7 +111,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_TwoPaymentsByNonRequester_ReturnNegativeSumValueForOneOfOtherMembers() {
+    public void calculateValues_TwoPaymentsByNonRequester_ReturnNegativeSumValueForOneOfOtherMembers() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Arrays.asList(
                 Payment.builder()
@@ -135,7 +134,7 @@ class PaymentsCalculatorTest {
     }
 
     @Test
-    void calculateValues_OnePaymentByRequesterAndOneNot_ReturnRightValuesForOtherMembers() {
+    public void calculateValues_OnePaymentByRequesterAndOneNot_ReturnRightValuesForOtherMembers() {
         List<Long> otherMembers = Arrays.asList(2L, 3L);
         List<Payment> payments = Arrays.asList(
                 Payment.builder()

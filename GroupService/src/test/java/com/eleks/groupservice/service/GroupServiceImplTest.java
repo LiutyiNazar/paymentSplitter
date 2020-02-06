@@ -6,7 +6,7 @@ import com.eleks.groupservice.domain.Group;
 import com.eleks.groupservice.dto.GroupRequestDto;
 import com.eleks.groupservice.dto.GroupResponseDto;
 import com.eleks.groupservice.dto.UserDto;
-import com.eleks.groupservice.dto.UserStatusDto;
+import com.eleks.groupservice.dto.StatusResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
 import com.eleks.groupservice.repository.GroupRepository;
@@ -31,19 +31,19 @@ import static org.mockito.Mockito.when;
 class GroupServiceImplTest {
 
     @Mock
-    GroupRepository repository;
+    private GroupRepository repository;
 
     @Mock
-    UserClient client;
+    private UserClient client;
 
-    GroupServiceImpl service;
+    private GroupServiceImpl service;
 
-    GroupRequestDto requestDto;
+    private GroupRequestDto requestDto;
 
-    Group group;
+    private Group group;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         service = new GroupServiceImpl(repository, client);
 
         requestDto = GroupRequestDto.builder()
@@ -61,7 +61,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void saveGroup_GroupMembersAreExist_ReturnSavedUser() {
+    public void saveGroup_GroupMembersAreExist_ReturnSavedUser() {
         when(client.areUserIdsValid(requestDto.getMembers())).thenReturn(true);
         when(repository.save(any(Group.class))).thenReturn(group);
 
@@ -71,17 +71,17 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void saveGroup_GroupMembersAreNotExist_ShouldThrowUsersIdsValidationException() {
+    public void saveGroup_GroupMembersAreNotExist_ShouldThrowUsersIdsValidationException() {
         when(client.areUserIdsValid(requestDto.getMembers())).thenReturn(false);
 
         UsersIdsValidationException exception = assertThrows(UsersIdsValidationException.class,
                 () -> service.saveGroup(requestDto));
 
-        assertEquals("Group contains non existing users", exception.getMessage());
+        assertEquals("Few users don`t exist", exception.getMessage());
     }
 
     @Test
-    void getGroup_GroupExists_ReturnGroupResponseDto() {
+    public void getGroup_GroupExists_ReturnGroupResponseDto() {
         when(repository.findById(group.getId())).thenReturn(Optional.of(group));
 
         Optional<GroupResponseDto> result = service.getGroup(group.getId());
@@ -90,7 +90,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void getGroup_GroupDoesntExist_ReturnEmptyOptional() {
+    public void getGroup_GroupDoesntExist_ReturnEmptyOptional() {
         when(repository.findById(group.getId())).thenReturn(Optional.empty());
 
         Optional<GroupResponseDto> result = service.getGroup(group.getId());
@@ -99,7 +99,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void editGroup_GroupAndMembersAreExist_ReturnResponseDto() {
+    public void editGroup_GroupAndMembersAreExist_ReturnResponseDto() {
         when(repository.findById(group.getId())).thenReturn(Optional.of(group));
         when(client.areUserIdsValid(requestDto.getMembers())).thenReturn(true);
 
@@ -112,7 +112,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void editGroup_GroupDoesntExist_ThrowResourceNotFoundException() {
+    public void editGroup_GroupDoesntExist_ThrowResourceNotFoundException() {
         when(repository.findById(group.getId())).thenReturn(Optional.empty());
 
         ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class, () -> service.editGroup(group.getId(), requestDto));
@@ -121,17 +121,17 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void editGroup_GroupExistMembersAreNotValid_ThrowUsersIdsValidationException() {
+    public void editGroup_GroupExistMembersAreNotValid_ThrowUsersIdsValidationException() {
         when(client.areUserIdsValid(requestDto.getMembers())).thenReturn(false);
 
         UsersIdsValidationException exception = assertThrows(UsersIdsValidationException.class,
                 () -> service.saveGroup(requestDto));
 
-        assertEquals("Group contains non existing users", exception.getMessage());
+        assertEquals("Few users don`t exist", exception.getMessage());
     }
 
     @Test
-    void deleteGroupById_GroupWithIdExists_CallRepositoryDelete() {
+    public void deleteGroupById_GroupWithIdExists_CallRepositoryDelete() {
         Long id = 1L;
         when(repository.findById(id)).thenReturn(Optional.of(group));
 
@@ -141,7 +141,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void deleteGroupById_GroupWithIdDoesntExist_ThrowResourceNotFoundException() {
+    public void deleteGroupById_GroupWithIdDoesntExist_ThrowResourceNotFoundException() {
         Long id = 1L;
         when(repository.findById(id)).thenReturn(Optional.empty());
 
@@ -151,7 +151,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void getGroupMembersStatus_GroupDoesntExist_ThrowResourceNotFoundException() {
+    public void getGroupMembersStatus_GroupDoesntExist_ThrowResourceNotFoundException() {
         Long requesterId = 1L;
 
         when(repository.findById(group.getId())).thenReturn(Optional.empty());
@@ -162,7 +162,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void getGroupMembersStatus_RequesterIsNotOneOfMembers_ThrowUsersIdsValidationException() {
+    public void getGroupMembersStatus_RequesterIsNotOneOfMembers_ThrowUsersIdsValidationException() {
         Long requesterId = 1L;
         group.setMembers(Lists.newArrayList(2L, 3L));
 
@@ -174,19 +174,19 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void getGroupMembersStatus_GroupHasRequesterAndOneMoreUserAndNoPayments_ShouldReturnStatusWithRightCurrencyAndUserDataAndZeroBalance() {
+    public void getGroupMembersStatus_GroupHasRequesterAndOneMoreUserAndNoPayments_ShouldReturnStatusWithRightCurrencyAndUserDataAndZeroBalance() {
         UserDto requester = UserDto.builder().id(1L).username("requester").build();
         UserDto member = UserDto.builder().id(2L).username("member").build();
 
         group.setMembers(Lists.newArrayList(requester.getId(), member.getId()));
 
         when(repository.findById(group.getId())).thenReturn(Optional.of(group));
-        when(client.getUsersByIds(anyList())).thenReturn(Collections.singletonList(member));
+        when(client.getListOfUsersByIds(anyList())).thenReturn(Collections.singletonList(member));
 
-        List<UserStatusDto> result = service.getGroupMembersStatus(group.getId(), requester.getId());
+        List<StatusResponseDto> result = service.getGroupMembersStatus(group.getId(), requester.getId());
 
         assertEquals(1, result.size());
-        UserStatusDto statusDto = result.get(0);
+        StatusResponseDto statusDto = result.get(0);
         assertEquals(group.getCurrency(), statusDto.getCurrency());
         assertEquals(member.getUsername(), statusDto.getUsername());
         assertEquals(member.getId(), statusDto.getUserId());
@@ -194,7 +194,7 @@ class GroupServiceImplTest {
     }
 
     @Test
-    void getGroupMembersStatus_GroupHasMembersIdsWhichAreNotValidNow_ShouldReturnStatusForOnlyValidUsers() {
+    public void getGroupMembersStatus_GroupHasMembersIdsWhichAreNotValidNow_ShouldReturnStatusForOnlyValidUsers() {
         UserDto requester = UserDto.builder().id(1L).username("requester").build();
         UserDto member = UserDto.builder().id(2L).username("member").build();
         UserDto oldMember = UserDto.builder().id(3L).username("oldMember").build();
@@ -202,12 +202,12 @@ class GroupServiceImplTest {
         group.setMembers(Lists.newArrayList(requester.getId(), member.getId(), oldMember.getId()));
 
         when(repository.findById(group.getId())).thenReturn(Optional.of(group));
-        when(client.getUsersByIds(anyList())).thenReturn(Collections.singletonList(member));
+        when(client.getListOfUsersByIds(anyList())).thenReturn(Collections.singletonList(member));
 
-        List<UserStatusDto> result = service.getGroupMembersStatus(group.getId(), requester.getId());
+        List<StatusResponseDto> result = service.getGroupMembersStatus(group.getId(), requester.getId());
 
         assertEquals(1, result.size());
-        UserStatusDto statusDto = result.get(0);
+        StatusResponseDto statusDto = result.get(0);
         assertEquals(member.getId(), statusDto.getUserId());
     }
 }

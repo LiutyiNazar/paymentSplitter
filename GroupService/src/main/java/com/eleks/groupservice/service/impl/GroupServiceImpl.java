@@ -5,7 +5,7 @@ import com.eleks.groupservice.domain.Group;
 import com.eleks.groupservice.dto.GroupRequestDto;
 import com.eleks.groupservice.dto.GroupResponseDto;
 import com.eleks.groupservice.dto.UserDto;
-import com.eleks.groupservice.dto.UserStatusDto;
+import com.eleks.groupservice.dto.StatusResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
 import com.eleks.groupservice.mapper.GroupMapper;
@@ -17,10 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.eleks.groupservice.service.impl.PaymentsCalculator.calculateValues;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -37,7 +36,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupResponseDto saveGroup(GroupRequestDto group) throws UsersIdsValidationException {
         if (!client.areUserIdsValid(group.getMembers())) {
-            throw new UsersIdsValidationException("Group contains non existing users");
+            throw new UsersIdsValidationException("Few users don`t exist");
         }
         Group entity = GroupMapper.toEntity(group);
         Group savedEntity = repository.save(entity);
@@ -73,7 +72,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<UserStatusDto> getGroupMembersStatus(Long groupId, Long requesterId) throws ResourceNotFoundException, UsersIdsValidationException {
+    public List<StatusResponseDto> getGroupMembersStatus(Long groupId, Long requesterId) throws ResourceNotFoundException, UsersIdsValidationException {
         Group group = repository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group doesn't exist"));
 
         if (!group.getMembers().contains(requesterId)) {
@@ -83,20 +82,22 @@ public class GroupServiceImpl implements GroupService {
         List<Long> otherMembersIdsFromGroup = group.getMembers()
                 .stream()
                 .filter(memberId -> !memberId.equals(requesterId))
-                .collect(Collectors.toList());
+                .collect(toList());
 
-        List<UserDto> members = client.getUsersByIds(otherMembersIdsFromGroup);
-        List<Long> realMembersIds = members.stream().map(UserDto::getId).collect(Collectors.toList());
+        List<UserDto> members = client.getListOfUsersByIds(otherMembersIdsFromGroup);
+        List<Long> realMembersIds = members.stream()
+                .map(UserDto::getId)
+                .collect(toList());
         Map<Long, Double> values = calculateValues(requesterId, group.getPayments(), realMembersIds);
 
         return members.stream()
                 .map(member ->
-                        UserStatusDto.builder()
+                        StatusResponseDto.builder()
                                 .userId(member.getId())
                                 .username(member.getUsername())
                                 .currency(group.getCurrency())
                                 .value(values.get(member.getId()))
                                 .build()
-                ).collect(Collectors.toList());
+                ).collect(toList());
     }
 }

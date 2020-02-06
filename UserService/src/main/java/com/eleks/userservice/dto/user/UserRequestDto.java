@@ -1,6 +1,6 @@
 package com.eleks.userservice.dto.user;
 
-import com.eleks.userservice.serializer.SimpleDateJsonDeserializer;
+import com.eleks.userservice.serializer.CustomJsonDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
@@ -35,8 +35,8 @@ public class UserRequestDto {
     private String lastName;
 
     @NotNull(message = "dateOfBirth is required")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SimpleDateJsonDeserializer.PATTERN)
-    @JsonDeserialize(using = SimpleDateJsonDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = CustomJsonDeserializer.PATTERN)
+    @JsonDeserialize(using = CustomJsonDeserializer.class)
     private LocalDate dateOfBirth;
 
     @NotNull(message = "email is required")

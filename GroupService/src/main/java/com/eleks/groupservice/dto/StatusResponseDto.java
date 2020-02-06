@@ -10,8 +10,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-// TODO rename to StatusResponseDto
-public class UserStatusDto {
+public class StatusResponseDto {
     private Long userId;
     private String username;
     private Currency currency;

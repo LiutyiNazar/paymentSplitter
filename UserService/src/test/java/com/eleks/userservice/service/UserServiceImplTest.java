@@ -44,12 +44,12 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         userRequestDto = UserRequestDto.builder()
-                .username("username")
-                .password("decoded_password")
-                .firstName("firstName")
-                .lastName("lastName")
+                .username("mcxPaul")
+                .password("EncryptPass")
+                .firstName("Paul")
+                .lastName("mcTerik")
                 .dateOfBirth(LocalDate.now())
-                .email("email@eleks.com")
+                .email("p.mc.terik@eleks.com")
                 .receiveNotifications(true)
                 .build();
 
@@ -110,7 +110,7 @@ class UserServiceImplTest {
         when(repository.save(any(User.class))).thenReturn(user);
         when(repository.findByUsername(anyString())).thenReturn(Optional.empty());
         when(repository.findByEmail(anyString())).thenReturn(Optional.empty());
-        when(encoder.encode(anyString())).thenReturn("encoded_password");
+        when(encoder.encode(anyString())).thenReturn("EncryptPass");
 
         UserResponseDto responseDto = service.saveUser(userRequestDto);
 

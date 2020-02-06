@@ -23,28 +23,31 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.singletonList;
+import static org.springframework.http.HttpStatus.*;
+
 @ControllerAdvice
-public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
+public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserServiceException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorDto handleUserServiceException(UserServiceException exception) {
-        return createError(HttpStatus.INTERNAL_SERVER_ERROR, Collections.singletonList(exception.getMessage()));
+        return createError(INTERNAL_SERVER_ERROR, singletonList(exception.getMessage()));
     }
 
     @ExceptionHandler(UsersIdsValidationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public ErrorDto handleInvalidGroupMembersIdsException(UsersIdsValidationException exception) {
-        return createError(HttpStatus.BAD_REQUEST, Collections.singletonList(exception.getMessage()));
+        return createError(BAD_REQUEST, singletonList(exception.getMessage()));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(NOT_FOUND)
     @ResponseBody
     public ErrorDto handleNotFoundException(ResourceNotFoundException exception) {
-        return createError(HttpStatus.NOT_FOUND, Collections.singletonList(exception.getMessage()));
+        return createError(NOT_FOUND, singletonList(exception.getMessage()));
     }
 
     @Override
@@ -73,7 +76,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         } else {
             msg = ex.getMessage();
         }
-        ErrorDto error = createError(status, Collections.singletonList(msg));
+        ErrorDto error = createError(status, singletonList(msg));
         return new ResponseEntity<>(error, headers, status);
     }
 

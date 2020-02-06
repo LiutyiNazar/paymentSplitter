@@ -33,44 +33,44 @@ class UserRepositoryTest {
     @BeforeEach
     void setUp() {
         user = User.builder()
-                .username("username")
-                .password("Passw0rd")
-                .firstName("firstName")
-                .lastName("lastName")
+                .username("PaulMcX")
+                .password("CrypthoPass")
+                .firstName("Paul")
+                .lastName("Liutyi")
                 .dateOfBirth(LocalDate.now())
-                .email("email@eleks.com")
+                .email("p.liutyi@eleks.com")
                 .receiveNotifications(false)
                 .build();
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void findById_UserWithIdExists_ReturnUser() {
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void findById_UserWithIdExists_ReturnUser() {
         User found = repository.findById(1L).get();
         assertEquals(1, found.getId());
     }
 
     @Test
-    void findById_UserWithIdDoesntExist_ReturnNothing() {
+    public void findById_UserWithIdDoesntExist_ReturnNothing() {
         Optional<User> found = repository.findById(1L);
         assertFalse(found.isPresent());
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_users_with_ids_1_2.sql")
-    void findAll_UsersExist_ReturnUsers() {
+    @Sql(scripts = "classpath:scripts/add_testing_users_with_ids_1_2.sql")
+    public void findAll_UsersExist_ReturnUsers() {
         List<User> found = repository.findAll();
         assertEquals(2, found.size());
     }
 
     @Test
-    void findAll_UsersDontExist_ReturnEmptyList() {
+    public void findAll_UsersDontExist_ReturnEmptyList() {
         List<User> found = repository.findAll();
         assertTrue(found.isEmpty());
     }
 
     @Test
-    void save_SaveNewUserWithCorrectData_ShouldSaveAndAssignIdAndFoundById() {
+    public void save_SaveNewUserWithCorrectData_ShouldSaveAndAssignIdAndFoundById() {
         User savedUser = repository.save(user);
         assertNotNull(savedUser.getId());
         User found = entityManager.find(User.class, savedUser.getId());
@@ -78,8 +78,8 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void save_SaveUserThenUpdateWithNewCorrectData_ShouldUpdatedUser() {
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void save_SaveUserThenUpdateWithNewCorrectData_ShouldUpdatedUser() {
         user.setId(1L);
         user.setFirstName("updated");
 
@@ -89,60 +89,60 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void deleteById_DeleteExistingUser_ShouldBeDeleted() {
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void deleteById_DeleteExistingUser_ShouldBeDeleted() {
         repository.deleteById(1L);
         User found = entityManager.find(User.class, 1L);
         assertNull(found);
     }
 
     @Test
-    void deleteById_DeleteNonExistingUser_ShouldThrowEmptyResultDataAccessException() {
+    public void deleteById_DeleteNonExistingUser_ShouldThrowEmptyResultDataAccessException() {
         assertThrows(EmptyResultDataAccessException.class, () -> repository.deleteById(1L));
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void findByUsername_UserWithSuchUsernameExists_ReturnUser() {
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void findByUsername_UserWithSuchUsernameExists_ReturnUser() {
         User found = repository.findByUsername("testUser").get();
         assertEquals(1, found.getId());
     }
 
     @Test
-    void findByUsername_UserWithSuchUsernameDoesntExist_ReturnNothing() {
+    public void findByUsername_UserWithSuchUsernameDoesntExist_ReturnNothing() {
         Optional<User> found = repository.findByUsername("testUser");
         assertFalse(found.isPresent());
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_user.sql")
-    void findByEmail_UserWithSuchEmailExists_ReturnUser() {
+    @Sql(scripts = "classpath:scripts/add_test_user.sql")
+    public void findByEmail_UserWithSuchEmailExists_ReturnUser() {
         User found = repository.findByEmail("test.user@eleks.com").get();
         assertEquals(1, found.getId());
     }
 
     @Test
-    void findByEmail_UserWithSuchEmailDoesntExist_ReturnNothing() {
+    public void findByEmail_UserWithSuchEmailDoesntExist_ReturnNothing() {
         Optional<User> found = repository.findByEmail("test.user@eleks.com");
         assertFalse(found.isPresent());
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_users_with_ids_1_2.sql")
-    void findAllByIdIn_SaveTwoUsersAndFindThemByIds_ReturnTwoUsers() {
+    @Sql(scripts = "classpath:scripts/add_testing_users_with_ids_1_2.sql")
+    public void findAllByIdIn_SaveTwoUsersAndFindThemByIds_ReturnTwoUsers() {
         List<User> found = repository.findAllByIdIn(Arrays.asList(1L, 2L));
         assertEquals(2, found.size());
     }
 
     @Test
-    void findAllByIdIn_NoUsersAndFindByIds_ReturnEmptyList() {
+    public void findAllByIdIn_NoUsersAndFindByIds_ReturnEmptyList() {
         List<User> found = repository.findAllByIdIn(Arrays.asList(1L, 2L));
         assertTrue(found.isEmpty());
     }
 
     @Test
-    @Sql(scripts = "classpath:scripts/insert_test_users_with_ids_1_2.sql")
-    void findAllByIdIn_SaveTwoUsersAndFindOneByIds_ReturnOneUsers() {
+    @Sql(scripts = "classpath:scripts/add_testing_users_with_ids_1_2.sql")
+    public void findAllByIdIn_SaveTwoUsersAndFindOneByIds_ReturnOneUsers() {
         List<User> found = repository.findAllByIdIn(Arrays.asList(2L, 3L));
         assertEquals(1, found.size());
     }

@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class UserMapperTest {
 
     @Test
-    void toEntity() {
+    public void toEntity() {
         UserRequestDto request = UserRequestDto.builder()
-                .username("uName")
-                .firstName("fName")
-                .lastName("lName")
+                .username("PaulMcX")
+                .firstName("Paul")
+                .lastName("Liutyi")
                 .dateOfBirth(LocalDate.now())
-                .email("uName@eleks.com")
+                .email("p.liutyi@eleks.com")
                 .receiveNotifications(true)
                 .build();
 
@@ -35,14 +35,14 @@ class UserMapperTest {
     }
 
     @Test
-    void toDto() {
+    public void toDto() {
         User user = User.builder()
                 .id(1L)
-                .username("uName")
-                .firstName("fName")
-                .lastName("lName")
+                .username("PaulMcX")
+                .firstName("Paul")
+                .lastName("Liutyi")
                 .dateOfBirth(LocalDate.now())
-                .email("uName@eleks.com")
+                .email("p.liutyi@eleks.com")
                 .receiveNotifications(true)
                 .build();
 

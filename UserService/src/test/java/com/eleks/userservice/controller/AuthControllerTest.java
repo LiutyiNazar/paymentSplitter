@@ -25,6 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,24 +33,22 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class AuthControllerTest {
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    JwtTokenUtil jwtTokenUtil;
-    UserDetailsServiceImpl service;
-    AuthenticationManager authenticationManager;
+    private JwtTokenUtil jwtTokenUtil;
+    private UserDetailsServiceImpl service;
+    private AuthenticationManager authenticationManager;
 
-    AuthController controller;
-    ObjectMapper objectMapper;
+    private AuthController controller;
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
-        jwtTokenUtil = mock(JwtTokenUtil.class);
-        service = mock(UserDetailsServiceImpl.class);
-        authenticationManager = mock(AuthenticationManager.class);
-
-        controller = new AuthController(jwtTokenUtil, service, authenticationManager);
         objectMapper = getObjectMapper();
-
+        authenticationManager = mock(AuthenticationManager.class);
+        service = mock(UserDetailsServiceImpl.class);
+        jwtTokenUtil = mock(JwtTokenUtil.class);
+        controller = new AuthController(jwtTokenUtil, service, authenticationManager);
         mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new CustomExceptionHandler())
                 .build();
@@ -57,9 +56,9 @@ public class AuthControllerTest {
 
     @Test
     void login_ValidCredentials_ShouldReturnOkAndToken() throws Exception {
-        LoginRequest request = new LoginRequest("testUser", "Passw0rd");
+        LoginRequest request = new LoginRequest("Peter", "Pooh");
         JwtResponse response = new JwtResponse("token");
-        UserDetailsImpl userDetails = new UserDetailsImpl("testUser", "Passw0rd_encoded", 1L);
+        UserDetailsImpl userDetails = new UserDetailsImpl("Peter", "Pooh_encoded", 1L);
 
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(service.loadUserByUsername(anyString())).thenReturn(userDetails);
@@ -74,27 +73,27 @@ public class AuthControllerTest {
     }
 
     @Test
-    void login_InvalidCredentials_ShouldReturnUnauthorizedAndError() throws Exception {
-        LoginRequest request = new LoginRequest("testUser", "Passw0rd");
+    public void login_InvalidCredentials_ShouldReturnUnauthorizedAndError() throws Exception {
+        LoginRequest request = new LoginRequest("Paul", "CrypthoPass");
 
         when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("msg"));
 
-        doPostLoginAndValidateError(objectMapper.writeValueAsString(request), HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        performLoginOfUserAndCheckReceivedError(objectMapper.writeValueAsString(request), UNAUTHORIZED, "Invalid credentials");
     }
 
     @Test
-    void login_UsernameNotPassed_ShouldReturnBadRequestAndError() throws Exception {
-        LoginRequest request = new LoginRequest(null, "Passw0rd");
-        doPostLoginAndValidateError(objectMapper.writeValueAsString(request), HttpStatus.BAD_REQUEST, "username is required");
+    public void login_UsernameNotPassed_ShouldReturnBadRequestAndError() throws Exception {
+        LoginRequest request = new LoginRequest(null, "CrypthoPass");
+        performLoginOfUserAndCheckReceivedError(objectMapper.writeValueAsString(request), BAD_REQUEST, "username is required");
     }
 
     @Test
-    void login_PasswordNotPassed_ShouldReturnBadRequestAndError() throws Exception {
-        LoginRequest request = new LoginRequest("testUser", null);
-        doPostLoginAndValidateError(objectMapper.writeValueAsString(request), HttpStatus.BAD_REQUEST, "password is required");
+    public void login_PasswordNotPassed_ShouldReturnBadRequestAndError() throws Exception {
+        LoginRequest request = new LoginRequest("Paul", null);
+        performLoginOfUserAndCheckReceivedError(objectMapper.writeValueAsString(request), BAD_REQUEST, "password is required");
     }
 
-    private void doPostLoginAndValidateError(String content, HttpStatus status, String errorMsg) throws Exception {
+    private void performLoginOfUserAndCheckReceivedError(String content, HttpStatus status, String errorMsg) throws Exception {
         String response = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content))

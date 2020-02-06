@@ -12,35 +12,35 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class LongListToStringConverterTest {
 
-    ListOfLongsToStringConverter converter;
+    private ListOfLongsToStringConverter converter;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         converter = new ListOfLongsToStringConverter();
     }
 
     @Test
-    void convertToDatabaseColumn_GivenListOfThreeLong_ReturnStringWithThreeDigits() {
+    public void convertToDatabaseColumn_GivenListOfThreeLong_ReturnStringWithThreeDigits() {
         List<Long> digits = Arrays.asList(1L, 2L, 20L);
         String converted = converter.convertToDatabaseColumn(digits);
         assertEquals("1;2;20", converted);
     }
 
     @Test
-    void convertToDatabaseColumn_GivenEmptyList_ReturnNull() {
+    public void convertToDatabaseColumn_GivenEmptyList_ReturnNull() {
         List<Long> digits = Collections.emptyList();
         String converted = converter.convertToDatabaseColumn(digits);
         assertNull(converted);
     }
 
     @Test
-    void convertToDatabaseColumn_GivenNull_ReturnNull() {
+    public void convertToDatabaseColumn_GivenNull_ReturnNull() {
         String converted = converter.convertToDatabaseColumn(null);
         assertNull(converted);
     }
 
     @Test
-    void convertToEntityAttribute_GivenStringsWithIds_ReturnListOfLongs() {
+    public void convertToEntityAttribute_GivenStringsWithIds_ReturnListOfLongs() {
         String data = "1;2;20";
 
         List<Long> digits = converter.convertToEntityAttribute(data);
@@ -51,13 +51,13 @@ class LongListToStringConverterTest {
     }
 
     @Test
-    void convertToEntityAttribute_GivenEmptyString_ReturnNull() {
+    public void convertToEntityAttribute_GivenEmptyString_ReturnNull() {
         List<Long> digits = converter.convertToEntityAttribute("");
         assertNull(digits);
     }
 
     @Test
-    void convertToEntityAttribute_GivenNull_ReturnNull() {
+    public void convertToEntityAttribute_GivenNull_ReturnNull() {
         List<Long> digits = converter.convertToEntityAttribute(null);
         assertNull(digits);
     }
