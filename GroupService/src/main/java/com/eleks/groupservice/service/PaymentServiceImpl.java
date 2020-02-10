@@ -1,4 +1,4 @@
-package com.eleks.groupservice.service.impl;
+package com.eleks.groupservice.service;
 
 import com.eleks.groupservice.domain.Group;
 import com.eleks.groupservice.domain.Payment;

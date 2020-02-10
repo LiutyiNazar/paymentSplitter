@@ -1,4 +1,4 @@
-package com.eleks.groupservice.service.impl;
+package com.eleks.groupservice.service;
 
 import com.eleks.groupservice.client.UserClient;
 import com.eleks.groupservice.domain.Group;
@@ -10,7 +10,6 @@ import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
 import com.eleks.groupservice.mapper.GroupMapper;
 import com.eleks.groupservice.repository.GroupRepository;
-import com.eleks.groupservice.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.eleks.groupservice.service.impl.PaymentsCalculator.calculateValues;
+import static com.eleks.groupservice.service.PaymentsCalculationHelper.calculateValues;
 import static java.util.stream.Collectors.toList;
 
 @Service

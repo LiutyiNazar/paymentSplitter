@@ -1,4 +1,4 @@
-package com.eleks.groupservice.service.impl;
+package com.eleks.groupservice.service;
 
 import com.eleks.groupservice.domain.Payment;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PaymentsCalculator {
+public class PaymentsCalculationHelper {
 
     public static Map<Long, Double> calculateValues(Long requesterId, List<Payment> payments, List<Long> otherMembersIds) {
         Map<Long, Double> values = new HashMap<>();

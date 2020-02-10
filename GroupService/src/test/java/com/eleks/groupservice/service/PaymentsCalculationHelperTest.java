@@ -1,7 +1,6 @@
 package com.eleks.groupservice.service;
 
 import com.eleks.groupservice.domain.Payment;
-import com.eleks.groupservice.service.impl.PaymentsCalculator;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
@@ -13,19 +12,19 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class PaymentsCalculatorTest {
+class PaymentsCalculationHelperTest {
 
     @Test
     public void calculateValues_NoOtherMembers_ReturnEmptyValuesMap() {
         List<Payment> payments = Collections.singletonList(Payment.builder().build());
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, Collections.emptyList());
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, Collections.emptyList());
 
         assertTrue(values.isEmpty());
     }
 
     @Test
     public void calculateValues_NoPayments_ReturnValuesMapWithOnlyZeros() {
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, Collections.emptyList(), Arrays.asList(1L, 2L));
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, Collections.emptyList(), Arrays.asList(1L, 2L));
 
         for (Double value : values.values()) {
             assertEquals(0D, value);
@@ -48,7 +47,7 @@ class PaymentsCalculatorTest {
                         .build()
         );
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         for (Double value : values.values()) {
             assertEquals(0D, value);
@@ -64,7 +63,7 @@ class PaymentsCalculatorTest {
                 .price(120.12)
                 .build());
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         assertEquals(2, values.size());
         assertEquals(40.04, values.get(2L));
@@ -80,7 +79,7 @@ class PaymentsCalculatorTest {
                 .price(120.12)
                 .build());
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         assertEquals(2, values.size());
         assertEquals(-40.04, values.get(2L));
@@ -103,7 +102,7 @@ class PaymentsCalculatorTest {
                         .build()
         );
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         assertEquals(2, values.size());
         assertEquals(80D, values.get(2L));
@@ -126,7 +125,7 @@ class PaymentsCalculatorTest {
                         .build()
         );
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         assertEquals(2, values.size());
         assertEquals(-80D, values.get(2L));
@@ -149,7 +148,7 @@ class PaymentsCalculatorTest {
                         .build()
         );
 
-        Map<Long, Double> values = PaymentsCalculator.calculateValues(1L, payments, otherMembers);
+        Map<Long, Double> values = PaymentsCalculationHelper.calculateValues(1L, payments, otherMembers);
 
         assertEquals(2, values.size());
         assertEquals(-40D, values.get(2L));

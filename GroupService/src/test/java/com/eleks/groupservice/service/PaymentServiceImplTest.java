@@ -9,7 +9,6 @@ import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.exception.UsersIdsValidationException;
 import com.eleks.groupservice.repository.GroupRepository;
 import com.eleks.groupservice.repository.PaymentRepository;
-import com.eleks.groupservice.service.impl.PaymentServiceImpl;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
