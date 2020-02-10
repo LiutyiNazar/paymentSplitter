@@ -51,9 +51,7 @@ public class UserServiceImpl implements UserService {
             throw new UniqueUserPropertiesViolationException("this email already exists");
         } else {
             User entity = UserMapper.toEntity(user);
-
             entity.setPassword(encoder.encode(entity.getPassword()));
-
             User savedEntity = repository.save(entity);
             return UserMapper.toDto(savedEntity);
         }

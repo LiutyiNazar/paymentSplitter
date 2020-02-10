@@ -33,10 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new ResourceNotFoundException("Group doesn't exist"));
 
-        boolean areCoPayersIdsValid = group.getMembers().containsAll(requestDto.getCoPayers());
-
-        if (!areCoPayersIdsValid) {
-            throw new UsersIdsValidationException("Payment co-payers are not members of group");
+        if (!group.getMembers().containsAll(requestDto.getCoPayers())) {
+            throw new UsersIdsValidationException("Co-payers are not members of group");
         }
 
         Payment payment = PaymentMapper.toEntity(creatorId, group, requestDto);

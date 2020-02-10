@@ -27,11 +27,10 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
         ErrorDto errorDto = ErrorDto.builder()
-                .statusCode(HttpStatus.UNAUTHORIZED.value())
                 .messages(Collections.singletonList("Unauthorized"))
                 .timestamp(LocalDateTime.now())
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
                 .build();
         objectMapper.writeValue(response.getOutputStream(), errorDto);
     }
