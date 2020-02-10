@@ -143,9 +143,9 @@ public class SecurityTest {
     @Test
     @Sql(scripts = "classpath:scripts/add_test_user.sql")
     public void getUser_WithValidJWT_ShouldReturnOkAndUser() throws Exception {
-        String jwt = jwtTokenUtil.generateToken(new JwtUserDataClaim("mcPaul", 1L));
+        String jwt = jwtTokenUtil.generateToken(new JwtUserDataClaim("mcPaul", 2L));
 
-        String responseBody = mockMvc.perform(get("/users/1")
+        String responseBody = mockMvc.perform(get("/users/2")
                 .header(AUTH_HEADER, BEARER_TOKEN_PREFIX + jwt))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -153,6 +153,6 @@ public class SecurityTest {
                 .getResponse().getContentAsString();
 
         UserResponseDto user = objectMapper.readValue(responseBody, UserResponseDto.class);
-        assertEquals(1L, user.getId());
+        assertEquals(2L, user.getId());
     }
 }

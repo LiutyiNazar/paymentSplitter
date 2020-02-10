@@ -122,7 +122,7 @@ class UserServiceImplTest {
         when(repository.findByUsername(anyString())).thenReturn(Optional.of(user));
 
         Throwable throwable = assertThrows(UniqueUserPropertiesViolationException.class, () -> service.saveUser(userRequestDto));
-        assertEquals("user with this username already exists", throwable.getMessage());
+        assertEquals("this username already exists", throwable.getMessage());
     }
 
     @Test
@@ -130,7 +130,7 @@ class UserServiceImplTest {
         when(repository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
         Throwable throwable = assertThrows(UniqueUserPropertiesViolationException.class, () -> service.saveUser(userRequestDto));
-        assertEquals("user with this email already exists", throwable.getMessage());
+        assertEquals("this email already exists", throwable.getMessage());
     }
 
     @Test
@@ -150,7 +150,7 @@ class UserServiceImplTest {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> service.editUser(1L, userRequestDto));
-        assertEquals("user with this id does't exist", exception.getMessage());
+        assertEquals("this id does't exist", exception.getMessage());
     }
 
     @Test
@@ -170,7 +170,7 @@ class UserServiceImplTest {
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> service.deleteUserById(id));
 
-        assertEquals("user with this id does't exist", exception.getMessage());
+        assertEquals("this id does't exist", exception.getMessage());
     }
 
     @Test

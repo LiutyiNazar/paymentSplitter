@@ -1,2 +1,2 @@
 INSERT INTO user(id, username, password, first_name, last_name, email, date_of_birth, receive_notifications)
-VALUES (1, 'mcPaul', '$2a$10$05uSEU0m1c/7NVNneSrMc.ePDT/7U6Ykhsl8q95ASi7GGOPvfCWaS', 'Paul', 'User', 'test.user@eleks.com', '2008-7-04', TRUE);
+VALUES (2, 'mcPaul', 'pass', 'Paul', 'User', 'test.user@eleks.com', '2008-07-04', TRUE);

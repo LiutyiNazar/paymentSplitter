@@ -26,7 +26,11 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public JwtUserDataClaim getUserFromToken(String token) throws IOException {
-        String rawData = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        String rawData = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
         return objectMapper.readValue(rawData, JwtUserDataClaim.class);
     }
 

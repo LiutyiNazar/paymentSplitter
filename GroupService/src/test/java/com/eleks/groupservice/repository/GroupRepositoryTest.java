@@ -40,7 +40,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void save_SaveGroupWithoutId_ShouldReturnSavedWithId() {
+    void saveSaveGroupWithoutIdShouldReturnSavedWithId() {
         Group saved = repository.save(group);
 
         Group found = entityManager.find(Group.class, saved.getId());
@@ -53,7 +53,7 @@ class GroupRepositoryTest {
 
     @Test
     @Sql(scripts = "classpath:scripts/add_test_group.sql")
-    void save_UpdateGroupWithNewData_ShouldReturnUpdatedGroup() {
+    void saveUpdateGroupWithNewDataShouldReturnUpdatedGroup() {
         group.setId(1L);
 
         Group updated = repository.save(group);
@@ -64,14 +64,14 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void save_GroupWithoutName_ShouldThrowDataIntegrityViolationException() {
+    void saveGroupWithoutNameShouldThrowDataIntegrityViolationException() {
         group.setGroupName(null);
         assertThrows(DataIntegrityViolationException.class,
                 () -> repository.save(group));
     }
 
     @Test
-    void save_GroupWithoutCurrency_ShouldThrowDataIntegrityViolationException() {
+    void saveGroupWithoutCurrencyShouldThrowDataIntegrityViolationException() {
         group.setCurrency(null);
         assertThrows(DataIntegrityViolationException.class,
                 () -> repository.save(group));
@@ -79,7 +79,7 @@ class GroupRepositoryTest {
 
     @Test
     @Sql(scripts = "classpath:scripts/add_test_group.sql")
-    void findById_GroupWithIdExists_ReturnUser() {
+    void findByIdGroupWithIdExistsReturnUser() {
         Group found = repository.findById(1L).get();
 
         assertEquals(1, found.getId());
@@ -89,7 +89,7 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void findById_GroupWithIdDoesntExist_ReturnNothing() {
+    void findByIdGroupWithIdDoesntExistReturnNothing() {
         Optional<Group> found = repository.findById(1L);
 
         assertFalse(found.isPresent());
@@ -97,7 +97,7 @@ class GroupRepositoryTest {
 
     @Test
     @Sql(scripts = "classpath:scripts/add_test_group.sql")
-    void deleteById_DeleteExistingGroup_ShouldBeDeleted() {
+    void deleteByIdDeleteExistingGroupShouldBeDeleted() {
         repository.deleteById(1L);
 
         Group found = entityManager.find(Group.class, 1L);
@@ -105,13 +105,13 @@ class GroupRepositoryTest {
     }
 
     @Test
-    void deleteById_DeleteNonExistingGroup_ShouldThrowEmptyResultDataAccessException() {
+    void deleteByIdDeleteNonExistingGroupShouldThrowEmptyResultDataAccessException() {
         assertThrows(EmptyResultDataAccessException.class, () -> repository.deleteById(1L));
     }
 
     @Test
     @Sql(scripts = "classpath:scripts/add_test_group_and_two_payments.sql")
-    void deleteById_DeleteExistingGroup_ShouldDeleteTwoPayments() {
+    void deleteByIdDeleteExistingGroupShouldDeleteTwoPayments() {
         repository.deleteById(1L);
 
         Payment payment1 = entityManager.find(Payment.class, 1L);

@@ -104,7 +104,7 @@ class UserRepositoryTest {
     @Test
     @Sql(scripts = "classpath:scripts/add_test_user.sql")
     public void findByUsername_UserWithSuchUsernameExists_ReturnUser() {
-        User found = repository.findByUsername("testUser").get();
+        User found = repository.findByUsername("mcPaul").get();
         assertEquals(1, found.getId());
     }
 
