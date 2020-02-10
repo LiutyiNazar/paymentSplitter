@@ -1,7 +1,5 @@
 package com.eleks.groupservice.converter;
 
-import lombok.extern.slf4j.Slf4j;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.Arrays;
@@ -18,9 +16,7 @@ public class ListOfLongsToStringConverter implements AttributeConverter<List<Lon
 
     @Override
     public String convertToDatabaseColumn(List<Long> attribute) {
-        if (isEmpty(attribute)) return null;
-
-        return attribute.stream()
+        return isEmpty(attribute) ? null : attribute.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(SPLIT_CHAR));
     }

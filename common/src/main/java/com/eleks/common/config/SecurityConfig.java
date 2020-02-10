@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private ObjectMapper objectMapper;
     private JwtTokenService jwtTokenService;
     private SecurityPrincipalHolder principalHolder;
@@ -42,8 +41,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(SWAGGER_WHITELIST);
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/users",
+                "/actuator/**",
+                "/swagger-ui.html",
+                "/swagger-ui/**",
+                "/webjars/**"
+        );
+
         for (Map.Entry<HttpMethod, List<String>> endpoint : getEndpointsToIgnore()) {
             web.ignoring().antMatchers(endpoint.getKey(), endpoint.getValue().toArray(new String[0]));
         }
@@ -52,17 +63,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected List<Map.Entry<HttpMethod, List<String>>> getEndpointsToIgnore() {
         return Collections.emptyList();
     }
-
-    private static final String[] SWAGGER_WHITELIST = {
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/users",
-            "/actuator/**",
-            "/swagger-ui.html",
-            "/swagger-ui/**",
-            "/webjars/**"
-    };
 }

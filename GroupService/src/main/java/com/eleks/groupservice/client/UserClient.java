@@ -54,6 +54,19 @@ public class UserClient {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     private List<UserDto> getUsersFromUserService(List<Long> userIds) throws HttpClientErrorException, UserServiceException {
         try {
             String url = baseUrl + "/users/search";

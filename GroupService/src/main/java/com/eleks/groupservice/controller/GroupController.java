@@ -28,7 +28,8 @@ public class GroupController {
 
     @GetMapping("/groups/{id}")
     public GroupResponseDto getGroup(@PathVariable Long id) {
-        return service.getGroup(id).orElseThrow(() -> new ResourceNotFoundException("group with this id does't exist"));
+        return service.getGroup(id)
+                .orElseThrow(() -> new ResourceNotFoundException("group with this id does't exist"));
     }
 
     @PutMapping("/groups/{id}")
