@@ -1,7 +1,7 @@
 package com.eleks.groupservice.client;
 
 import com.eleks.common.security.SecurityPrincipalHolder;
-import com.eleks.common.security.model.LoggedInUserPrincipal;
+import com.eleks.common.security.model.LoggedPrincipal;
 import com.eleks.groupservice.dto.UserDto;
 import com.eleks.groupservice.dto.UserSearchDto;
 import com.eleks.groupservice.exception.UserServiceException;
@@ -19,7 +19,7 @@ import org.springframework.http.MediaType;
 
 import java.util.List;
 
-import static com.eleks.common.security.SecurityConstants.BEARER_TOKEN_PREFIX;
+import static com.eleks.common.config.SecurityConstants.BEARER_TOKEN_PREFIX;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -42,7 +42,7 @@ class UserClientTest {
     @MockBean
     private SecurityPrincipalHolder securityPrincipalHolder;
 
-    private LoggedInUserPrincipal fakePrincipal;
+    private LoggedPrincipal fakePrincipal;
 
     @BeforeAll
     static void setUpAll() {
@@ -52,7 +52,7 @@ class UserClientTest {
 
     @BeforeEach
     void setUpEach() {
-        fakePrincipal = new LoggedInUserPrincipal("testUser", 1L, "fake_token");
+        fakePrincipal = new LoggedPrincipal("testUser", 1L, "fake_token");
         when(securityPrincipalHolder.getPrincipal()).thenReturn(fakePrincipal);
     }
 

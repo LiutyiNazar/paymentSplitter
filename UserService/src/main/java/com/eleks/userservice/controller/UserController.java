@@ -5,6 +5,7 @@ import com.eleks.userservice.dto.user.UserRequestDto;
 import com.eleks.userservice.dto.user.UserResponseDto;
 import com.eleks.userservice.exception.ResourceNotFoundException;
 import com.eleks.userservice.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
+@Api(value = "user", description = "User service API")
 public class UserController {
     private static final String USER_DOES_NOT_EXIST = "user with this id does't exist";
 

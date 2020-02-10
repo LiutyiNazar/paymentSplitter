@@ -1,6 +1,6 @@
 package com.eleks.groupservice.config;
 
-import com.eleks.common.security.BaseSecurityConfig;
+import com.eleks.common.config.SecurityConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableWebSecurity
-@Import(value = BaseSecurityConfig.class)
+@Import(value = SecurityConfig.class)
 @ComponentScan(basePackages = "com.eleks")
 public class GroupServiceConfig {
 

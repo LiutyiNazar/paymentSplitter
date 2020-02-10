@@ -1,7 +1,7 @@
 package com.eleks.groupservice.client;
 
 import com.eleks.common.security.SecurityPrincipalHolder;
-import com.eleks.common.security.model.LoggedInUserPrincipal;
+import com.eleks.common.security.model.LoggedPrincipal;
 import com.eleks.groupservice.dto.UserDto;
 import com.eleks.groupservice.dto.UserSearchDto;
 import com.eleks.groupservice.exception.UserServiceException;
@@ -70,7 +70,7 @@ public class UserClient {
 
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        LoggedInUserPrincipal principal = principalHolder.getPrincipal();
+        LoggedPrincipal principal = principalHolder.getPrincipal();
         headers.setBearerAuth(principal.getJwt());
         return headers;
     }

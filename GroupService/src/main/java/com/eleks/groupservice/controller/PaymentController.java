@@ -5,6 +5,7 @@ import com.eleks.groupservice.dto.PaymentRequestDto;
 import com.eleks.groupservice.dto.PaymentResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
 import com.eleks.groupservice.service.PaymentService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Api(value = "payment", description = "Payment API")
 public class PaymentController {
     private PaymentService service;
     private SecurityPrincipalHolder principalHolder;

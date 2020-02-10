@@ -12,7 +12,6 @@ import static java.util.Objects.isNull;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Converter
-@Slf4j
 public class ListOfLongsToStringConverter implements AttributeConverter<List<Long>, String> {
 
     private static final String SPLIT_CHAR = ";";
@@ -35,7 +34,6 @@ public class ListOfLongsToStringConverter implements AttributeConverter<List<Lon
                     .map(Long::valueOf)
                     .collect(Collectors.toList());
         } catch (NumberFormatException ex) {
-            log.info("Got an exception while converting from String to List of Longs");
             return null;
         }
     }

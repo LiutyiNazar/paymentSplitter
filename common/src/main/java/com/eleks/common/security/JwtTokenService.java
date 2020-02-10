@@ -14,13 +14,13 @@ import java.util.Date;
 
 @Component
 @Slf4j
-public class JwtTokenUtil implements Serializable {
+public class JwtTokenService implements Serializable {
     public static final long JWT_VALIDITY_TIME_MILLIS = 60 * 60 * 1000;
 
     private String secret;
     private ObjectMapper objectMapper;
 
-    public JwtTokenUtil(@Value("${jwt.secret}") String secret, ObjectMapper objectMapper) {
+    public JwtTokenService(@Value("${jwt.secret}") String secret, ObjectMapper objectMapper) {
         this.secret = secret;
         this.objectMapper = objectMapper;
     }

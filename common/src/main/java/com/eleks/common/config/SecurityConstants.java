@@ -1,4 +1,4 @@
-package com.eleks.common.security;
+package com.eleks.common.config;
 
 public class SecurityConstants {
     public static final String AUTH_HEADER = "Authorization";

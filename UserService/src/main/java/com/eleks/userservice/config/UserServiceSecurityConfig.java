@@ -1,7 +1,7 @@
 package com.eleks.userservice.config;
 
-import com.eleks.common.security.BaseSecurityConfig;
-import com.eleks.common.security.JwtTokenUtil;
+import com.eleks.common.config.SecurityConfig;
+import com.eleks.common.security.JwtTokenService;
 import com.eleks.common.security.SecurityPrincipalHolder;
 import com.eleks.userservice.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +24,7 @@ import static org.springframework.http.HttpMethod.POST;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.eleks")
-public class UserServiceSecurityConfig extends BaseSecurityConfig {
+public class UserServiceSecurityConfig extends SecurityConfig {
 
     private UserDetailsServiceImpl userDetailsService;
 
@@ -40,8 +40,8 @@ public class UserServiceSecurityConfig extends BaseSecurityConfig {
     }
 
     @Autowired
-    public UserServiceSecurityConfig(ObjectMapper objectMapper, JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl userDetailsService, SecurityPrincipalHolder holder) {
-        super(objectMapper, jwtTokenUtil, holder);
+    public UserServiceSecurityConfig(ObjectMapper objectMapper, JwtTokenService jwtTokenService, UserDetailsServiceImpl userDetailsService, SecurityPrincipalHolder holder) {
+        super(objectMapper, jwtTokenService, holder);
         this.userDetailsService = userDetailsService;
     }
 

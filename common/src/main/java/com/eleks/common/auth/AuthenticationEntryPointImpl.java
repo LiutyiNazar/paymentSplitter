@@ -1,4 +1,4 @@
-package com.eleks.common.security;
+package com.eleks.common.auth;
 
 
 import com.eleks.common.dto.ErrorDto;
@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
-public class AuthEntryPointImpl implements AuthenticationEntryPoint {
+public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     private ObjectMapper objectMapper;
 
-    public AuthEntryPointImpl(ObjectMapper objectMapper) {
+    public AuthenticationEntryPointImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

@@ -1,8 +1,10 @@
-package com.eleks.common.security;
+package com.eleks.common.auth;
 
 
+import com.eleks.common.security.JwtTokenService;
+import com.eleks.common.security.SecurityPrincipalHolder;
 import com.eleks.common.security.model.JwtUserDataClaim;
-import com.eleks.common.security.model.LoggedInUserPrincipal;
+import com.eleks.common.security.model.LoggedPrincipal;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -16,29 +18,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.eleks.common.security.SecurityConstants.AUTH_HEADER;
-import static com.eleks.common.security.SecurityConstants.BEARER_TOKEN_PREFIX;
+import static com.eleks.common.config.SecurityConstants.AUTH_HEADER;
+import static com.eleks.common.config.SecurityConstants.BEARER_TOKEN_PREFIX;
+import static java.util.Objects.nonNull;
 
 @Slf4j
 public class AuthRequestFilter extends OncePerRequestFilter {
 
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenService jwtTokenService;
     private SecurityPrincipalHolder principalHolder;
 
-    public AuthRequestFilter(JwtTokenUtil jwtTokenUtil, SecurityPrincipalHolder principalHolder) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    public AuthRequestFilter(JwtTokenService jwtTokenService, SecurityPrincipalHolder principalHolder) {
+        this.jwtTokenService = jwtTokenService;
         this.principalHolder = principalHolder;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String requestTokenHeader = request.getHeader(AUTH_HEADER);
-        String jwtToken = getTokenFromHeader(requestTokenHeader);
-        JwtUserDataClaim userClaim = getUserFromJwtToken(jwtToken);
-
-        if (userClaim != null) {
-            LoggedInUserPrincipal principal = new LoggedInUserPrincipal(userClaim.getUsername(), userClaim.getUserId(), jwtToken);
+        String requestHeader = request.getHeader(AUTH_HEADER);
+        String token = getTokenFromHeader(requestHeader);
+        JwtUserDataClaim userClaim = getUserFromJwtToken(token);
+        if (nonNull(userClaim)) {
+            LoggedPrincipal principal = new LoggedPrincipal(userClaim.getUsername(), userClaim.getUserId(), token);
             principalHolder.setPrincipal(principal);
         }
 
@@ -46,17 +48,17 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     }
 
     private String getTokenFromHeader(String requestTokenHeader) {
-        if (requestTokenHeader != null && requestTokenHeader.startsWith(BEARER_TOKEN_PREFIX)) {
+        if (nonNull(requestTokenHeader) && requestTokenHeader.startsWith(BEARER_TOKEN_PREFIX)) {
             return requestTokenHeader.replace(BEARER_TOKEN_PREFIX, "");
-        } else {
-            log.warn("JWT Token is missing or does not begin with Bearer string");
-            return null;
         }
+        log.warn("Token is missing.");
+        return null;
+
     }
 
     private JwtUserDataClaim getUserFromJwtToken(String jwtToken) {
         try {
-            return jwtTokenUtil.getUserFromToken(jwtToken);
+            return jwtTokenService.getUserFromToken(jwtToken);
         } catch (ExpiredJwtException exception) {
             log.warn("Request to parse expired JWT : {} failed : {}", jwtToken, exception.getMessage());
         } catch (UnsupportedJwtException exception) {

@@ -2,7 +2,7 @@ package com.eleks.groupservice.controller;
 
 import com.eleks.common.dto.ErrorDto;
 import com.eleks.common.security.SecurityPrincipalHolder;
-import com.eleks.common.security.model.LoggedInUserPrincipal;
+import com.eleks.common.security.model.LoggedPrincipal;
 import com.eleks.groupservice.dto.PaymentRequestDto;
 import com.eleks.groupservice.dto.PaymentResponseDto;
 import com.eleks.groupservice.exception.ResourceNotFoundException;
@@ -55,7 +55,7 @@ class PaymentControllerTest {
 
     private PaymentRequestDto requestDto;
     private PaymentResponseDto responseDto;
-    private LoggedInUserPrincipal principal;
+    private LoggedPrincipal principal;
 
     @BeforeEach
     public void setUp() {
@@ -63,7 +63,7 @@ class PaymentControllerTest {
                 .setControllerAdvice(new CustomExceptionHandler())
                 .build();
 
-        principal = new LoggedInUserPrincipal("testUser", 1L, "jwt_token");
+        principal = new LoggedPrincipal("testUser", 1L, "jwt_token");
 
         requestDto = PaymentRequestDto.builder()
                 .paymentDescription("paymentDescription")

@@ -48,7 +48,7 @@ public class UserControllerTest {
     private static String randomStringForTest = new RandomString(51).nextString();
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception{
         objectMapper = getObjectMapper();
 
         service = mock(UserService.class);
@@ -68,6 +68,8 @@ public class UserControllerTest {
                 .email("paul.mc.x@eleks.com")
                 .receiveNotifications(true)
                 .build();
+
+        System.out.println(objectMapper.writeValueAsString(userRequestDto));
 
         userResponseDto = UserResponseDto.builder()
                 .id(1L)
@@ -371,6 +373,7 @@ public class UserControllerTest {
     @Test
     public void searchUsers_PostSearchParams_ShouldReturnOkAndListOfResults() throws Exception {
         UserSearchDto searchDto = new UserSearchDto(Collections.singletonList(1L));
+        System.out.println(objectMapper.writeValueAsString(searchDto));
         List<UserResponseDto> result = Collections.singletonList(UserResponseDto.builder().id(1L).build());
 
         when(service.searchUsers(any(UserSearchDto.class))).thenReturn(result);

@@ -1,6 +1,10 @@
-package com.eleks.common.security;
+package com.eleks.common.config;
 
 
+import com.eleks.common.auth.AuthRequestFilter;
+import com.eleks.common.auth.AuthenticationEntryPointImpl;
+import com.eleks.common.security.JwtTokenService;
+import com.eleks.common.security.SecurityPrincipalHolder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,15 +17,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private ObjectMapper objectMapper;
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenService jwtTokenService;
     private SecurityPrincipalHolder principalHolder;
 
-    public BaseSecurityConfig(ObjectMapper objectMapper, JwtTokenUtil jwtTokenUtil, SecurityPrincipalHolder principalHolder) {
+    public SecurityConfig(ObjectMapper objectMapper, JwtTokenService jwtTokenService, SecurityPrincipalHolder principalHolder) {
         this.objectMapper = objectMapper;
-        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtTokenService = jwtTokenService;
         this.principalHolder = principalHolder;
     }
 
@@ -30,11 +34,11 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new AuthEntryPointImpl(objectMapper))
+                .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointImpl(objectMapper))
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new AuthRequestFilter(jwtTokenUtil, principalHolder), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new AuthRequestFilter(jwtTokenService, principalHolder), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -56,7 +60,9 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
             "/configuration/ui",
             "/configuration/security",
             "/users",
+            "/actuator/**",
             "/swagger-ui.html",
+            "/swagger-ui/**",
             "/webjars/**"
     };
 }

@@ -1,7 +1,7 @@
 package com.eleks.userservice.security;
 
 import com.eleks.common.dto.ErrorDto;
-import com.eleks.common.security.JwtTokenUtil;
+import com.eleks.common.security.JwtTokenService;
 import com.eleks.common.security.model.JwtUserDataClaim;
 import com.eleks.userservice.dto.login.JwtResponse;
 import com.eleks.userservice.dto.login.LoginRequest;
@@ -20,8 +20,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 
-import static com.eleks.common.security.SecurityConstants.AUTH_HEADER;
-import static com.eleks.common.security.SecurityConstants.BEARER_TOKEN_PREFIX;
+import static com.eleks.common.config.SecurityConstants.AUTH_HEADER;
+import static com.eleks.common.config.SecurityConstants.BEARER_TOKEN_PREFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -41,7 +41,7 @@ public class SecurityTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenService jwtTokenService;
 
     private MockMvc mockMvc;
 
@@ -110,7 +110,7 @@ public class SecurityTest {
     @Test
     public void getUser_WithExpiredJWT_ShouldReturnUnAuthorizedError() throws Exception {
         String subject = objectMapper.writeValueAsString(new JwtUserDataClaim("mcPaul", 1L));
-        String expiredJwt = jwtTokenUtil.doGenerateToken(subject, 0);
+        String expiredJwt = jwtTokenService.doGenerateToken(subject, 0);
 
         String responseBody = mockMvc.perform(get("/users/1")
                 .header(AUTH_HEADER, BEARER_TOKEN_PREFIX + expiredJwt))
@@ -143,7 +143,7 @@ public class SecurityTest {
     @Test
     @Sql(scripts = "classpath:scripts/add_test_user.sql")
     public void getUser_WithValidJWT_ShouldReturnOkAndUser() throws Exception {
-        String jwt = jwtTokenUtil.generateToken(new JwtUserDataClaim("mcPaul", 2L));
+        String jwt = jwtTokenService.generateToken(new JwtUserDataClaim("mcPaul", 2L));
 
         String responseBody = mockMvc.perform(get("/users/2")
                 .header(AUTH_HEADER, BEARER_TOKEN_PREFIX + jwt))

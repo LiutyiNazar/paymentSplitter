@@ -1,7 +1,7 @@
 package com.eleks.userservice.controller;
 
 import com.eleks.common.dto.ErrorDto;
-import com.eleks.common.security.JwtTokenUtil;
+import com.eleks.common.security.JwtTokenService;
 import com.eleks.common.security.model.JwtUserDataClaim;
 import com.eleks.userservice.dto.UserDetailsImpl;
 import com.eleks.userservice.dto.login.JwtResponse;
@@ -35,7 +35,7 @@ public class AuthControllerTest {
 
     private MockMvc mockMvc;
 
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenService jwtTokenService;
     private UserDetailsServiceImpl service;
     private AuthenticationManager authenticationManager;
 
@@ -47,8 +47,8 @@ public class AuthControllerTest {
         objectMapper = getObjectMapper();
         authenticationManager = mock(AuthenticationManager.class);
         service = mock(UserDetailsServiceImpl.class);
-        jwtTokenUtil = mock(JwtTokenUtil.class);
-        controller = new AuthController(jwtTokenUtil, service, authenticationManager);
+        jwtTokenService = mock(JwtTokenService.class);
+        controller = new AuthController(jwtTokenService, service, authenticationManager);
         mockMvc = standaloneSetup(controller)
                 .setControllerAdvice(new CustomExceptionHandler())
                 .build();
@@ -62,7 +62,7 @@ public class AuthControllerTest {
 
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(service.loadUserByUsername(anyString())).thenReturn(userDetails);
-        when(jwtTokenUtil.generateToken(any(JwtUserDataClaim.class))).thenReturn(response.getJwt());
+        when(jwtTokenService.generateToken(any(JwtUserDataClaim.class))).thenReturn(response.getJwt());
 
         mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -1,12 +1,13 @@
 package com.eleks.userservice.controller;
 
 
-import com.eleks.common.security.JwtTokenUtil;
+import com.eleks.common.security.JwtTokenService;
 import com.eleks.common.security.model.JwtUserDataClaim;
 import com.eleks.userservice.dto.UserDetailsImpl;
 import com.eleks.userservice.dto.login.JwtResponse;
 import com.eleks.userservice.dto.login.LoginRequest;
 import com.eleks.userservice.service.UserDetailsServiceImpl;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,15 +23,16 @@ import java.io.IOException;
 
 @RestController
 @Slf4j
+@Api(value = "Auth", description = "Auth API")
 public class AuthController {
 
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenService jwtTokenService;
     private UserDetailsServiceImpl service;
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthController(JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl service, AuthenticationManager authenticationManager) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    public AuthController(JwtTokenService jwtTokenService, UserDetailsServiceImpl service, AuthenticationManager authenticationManager) {
+        this.jwtTokenService = jwtTokenService;
         this.service = service;
         this.authenticationManager = authenticationManager;
     }
@@ -42,7 +44,7 @@ public class AuthController {
         UserDetailsImpl details = service.loadUserByUsername(request.getUsername());
         JwtUserDataClaim userDataClaim = new JwtUserDataClaim(details.getUsername(), details.getUserId());
 
-        return new JwtResponse(jwtTokenUtil.generateToken(userDataClaim));
+        return new JwtResponse(jwtTokenService.generateToken(userDataClaim));
     }
 
     private void performAuthentication(String username, String password) throws BadCredentialsException {
